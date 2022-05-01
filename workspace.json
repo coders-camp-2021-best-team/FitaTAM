@@ -1,0 +1,8 @@
+{
+    "version": 2,
+    "projects": {
+        "api": "apps/api",
+        "client": "apps/client",
+        "common": "libs/common"
+    }
+}
