@@ -4,7 +4,7 @@
     "license": "MIT",
     "scripts": {
         "start:client": "nx serve",
-        "build": "nx build",
+        "build:client": "nx run client:build:production",
         "lint:client": "nx run client:lint",
         "lint:api": "nx run api:lint",
         "graph": "nx graph"
