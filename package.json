@@ -6,7 +6,8 @@
         "start:client": "nx serve",
         "build": "nx build",
         "lint:client": "nx run client:lint",
-        "lint:api": "nx run api:lint"
+        "lint:api": "nx run api:lint",
+        "graph": "nx graph"
     },
     "private": true,
     "dependencies": {
