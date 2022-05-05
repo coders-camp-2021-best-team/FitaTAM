@@ -5,8 +5,15 @@ import {
     PrimaryColumn,
     OneToMany,
 } from 'typeorm';
-import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
-import { Token } from '../token';
+import {
+    AccountRole,
+    AccountStatus,
+    Gender,
+    Goal,
+    PhysicalActivity,
+    Category,
+    Token,
+} from '..';
 
 @Entity('users')
 export class User {
@@ -65,4 +72,7 @@ export class User {
 
     @OneToMany(() => Token, (t) => t.user, { cascade: true })
     tokens: Token[];
+
+    @OneToMany(() => Category, (c) => c.user)
+    categories: Category[];
 }
