@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    PrimaryColumn,
+    OneToMany,
+} from 'typeorm';
 import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
+import { Token } from '../token';
 
 @Entity('users')
 export class User {
@@ -53,4 +60,9 @@ export class User {
 
     @Column('enum', { enum: AccountStatus, default: AccountStatus.UNVERIFIED })
     account_status: AccountStatus;
+
+    // RELATIONS
+
+    @OneToMany(() => Token, (t) => t.user, { cascade: true })
+    tokens: Token[];
 }
