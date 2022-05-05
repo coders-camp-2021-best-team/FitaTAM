@@ -1,11 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
-import {
-    AccountRole,
-    AccountStatus,
-    Gender,
-    Goal,
-    PhysicalActivity,
-} from '../enums';
+import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
 
 @Entity('users')
 export class User {
