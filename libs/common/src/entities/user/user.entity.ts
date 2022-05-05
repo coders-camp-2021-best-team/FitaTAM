@@ -73,6 +73,6 @@ export class User {
     @OneToMany(() => Token, (t) => t.user, { cascade: true })
     tokens: Token[];
 
-    @OneToMany(() => Category, (c) => c.user)
+    @OneToMany(() => Category, (c) => c.user, { cascade: true })
     categories: Category[];
 }

@@ -14,6 +14,6 @@ export class Category {
 
     // RELATIONS
 
-    @ManyToOne(() => User, (u) => u.categories)
+    @ManyToOne(() => User, (u) => u.categories, { onDelete: 'CASCADE' })
     user: User;
 }
