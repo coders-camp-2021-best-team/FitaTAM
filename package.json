@@ -3,10 +3,12 @@
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
-        "start:client": "nx serve",
-        "build:client": "nx run client:build:production",
-        "lint:client": "nx run client:lint",
-        "lint:api": "nx run api:lint",
+        "start:client": "nx serve client",
+        "start:api": "nx serve api",
+        "build:client": "nx build client",
+        "build:api": "nx build api",
+        "lint:client": "nx lint client",
+        "lint:api": "nx lint api",
         "graph": "nx graph"
     },
     "private": true,
