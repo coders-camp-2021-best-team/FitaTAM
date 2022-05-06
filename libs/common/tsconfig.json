@@ -10,6 +10,7 @@
     "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
         "strict": true,
+        "strictPropertyInitialization": false,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true
     }

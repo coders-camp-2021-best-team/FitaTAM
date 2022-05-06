@@ -1,0 +1,15 @@
+export enum Diet {
+    DIABETIC,
+    GLUTEN_FREE,
+    HIGH_FIBRE,
+    HIGH_PROTEIN,
+    KETO,
+    LACTOSE_FREE,
+    LESS_SUGAR,
+    LOW_CHOLESTEROL,
+    LOW_FAT,
+    LOW_FODMAP_IBS,
+    VEGAN,
+    VEGETARIAN,
+    WITHOUT_MILK,
+}

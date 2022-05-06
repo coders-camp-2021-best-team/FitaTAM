@@ -1,0 +1,5 @@
+export enum Unit {
+    PER_100_GRAMS = 'PER_100_GRAMS',
+    PER_SERVING = 'PER_SERVING',
+    PER_PACKAGE = 'PER_PACKAGE',
+}
