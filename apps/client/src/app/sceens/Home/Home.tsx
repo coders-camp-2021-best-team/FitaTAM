@@ -3,7 +3,7 @@ import { Box, Fab, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/Routes';
-import { homeStyle } from '../../styles/Home.styles';
+import { homeStyle } from './Home.styles';
 
 export const Home = () => {
     return (
