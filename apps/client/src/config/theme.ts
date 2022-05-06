@@ -17,16 +17,6 @@ declare module '@mui/material/styles' {
 }
 
 export const theme = createTheme({
-    components: {
-        MuiCssBaseline: {
-            styleOverrides: {
-                body: {
-                    margin: 0,
-                    padding: 0,
-                },
-            },
-        },
-    },
     palette: {
         primary: {
             main: '#4caf50',
@@ -34,7 +24,7 @@ export const theme = createTheme({
             dark: '#388e3c',
         },
         background: {
-            default: 'edf7ed',
+            default: '#edf7ed',
         },
     },
     breakpoints: {

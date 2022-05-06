@@ -15,7 +15,7 @@ import {
     Search,
     RequestPasswordReset,
     AddProduct,
-    AddDish
+    AddDish,
 } from './sceens';
 
 export const Router = () => {
@@ -29,7 +29,7 @@ export const Router = () => {
                         </LoggedOutRoute>
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<Home />} />
+                    {/* <Route path={ROUTES.HOME} element={<Home />} /> */}
                     <Route path={ROUTES.LOGIN} element={<Login />} />
 
                     <Route path={ROUTES.REGISTER} element={<Register />} />
@@ -57,18 +57,15 @@ export const Router = () => {
                         </ProtectedRoute>
                     }
                 >
+                    <Route path={ROUTES.HOME} element={<Home />} />
 
                     <Route path={ROUTES.FEED} element={<Feed />} />
-
 
                     <Route path={ROUTES.ADD_PRODUCT} element={<AddProduct />} />
 
                     <Route path={ROUTES.ADD_DISH} element={<AddDish />} />
 
-                    <Route
-                        path={`${ROUTES.PROFILE}`}
-                        element={<Profile />}
-                    />
+                    <Route path={`${ROUTES.PROFILE}`} element={<Profile />} />
 
                     <Route path={ROUTES.SEARCH} element={<Search />} />
                 </Route>
