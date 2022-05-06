@@ -2,28 +2,22 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    PrimaryColumn,
     OneToMany,
+    OneToOne,
+    JoinColumn,
 } from 'typeorm';
-import {
-    AccountRole,
-    AccountStatus,
-    Gender,
-    Goal,
-    PhysicalActivity,
-    Category,
-    Token,
-} from '..';
+import { MealPlanCategory, NutritionalValues, Dish, Token } from '..';
+import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
 
-@Entity('users')
+@Entity()
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @PrimaryColumn()
+    @Column({ unique: true })
     email: string;
 
-    @PrimaryColumn()
+    @Column({ unique: true })
     username: string;
 
     @Column()
@@ -38,10 +32,10 @@ export class User {
     @Column('date')
     birthdate: Date;
 
-    @Column('float', { comment: 'user body weight in kg' })
+    @Column('float', { comment: '[kg]' })
     weight: number;
 
-    @Column('float', { comment: 'user height in cm' })
+    @Column('float', { comment: '[cm]' })
     height: number;
 
     @Column('enum', { enum: Gender })
@@ -53,26 +47,22 @@ export class User {
     @Column('enum', { enum: Goal })
     goal: Goal;
 
-    @Column('int')
-    carbohydrates_demand: number;
-
-    @Column('int')
-    fat_demand: number;
-
-    @Column('int')
-    protein_demand: number;
-
     @Column('enum', { enum: AccountRole, default: AccountRole.USER })
     account_role: AccountRole;
 
     @Column('enum', { enum: AccountStatus, default: AccountStatus.UNVERIFIED })
     account_status: AccountStatus;
 
-    // RELATIONS
+    @OneToOne(() => NutritionalValues, { eager: true, cascade: true })
+    @JoinColumn()
+    nutritional_demand: NutritionalValues;
 
     @OneToMany(() => Token, (t) => t.user, { cascade: true })
     tokens: Token[];
 
-    @OneToMany(() => Category, (c) => c.user, { cascade: true })
-    categories: Category[];
+    @OneToMany(() => MealPlanCategory, (c) => c.user, { cascade: true })
+    meal_scheme: MealPlanCategory[];
+
+    @OneToMany(() => Dish, (d) => d.author, { cascade: true })
+    dishes: Dish[];
 }
