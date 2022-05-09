@@ -29,7 +29,7 @@ export const Router = () => {
                         </LoggedOutRoute>
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<Home />} />
+                    {/* <Route path={ROUTES.HOME} element={<Home />} />
                     <Route path={ROUTES.LOGIN} element={<Login />} />
 
                     <Route path={ROUTES.REGISTER} element={<Register />} />
@@ -47,7 +47,7 @@ export const Router = () => {
                     <Route
                         path={`${ROUTES.ACTIVATE_ACCOUNT}/:token`}
                         element={<ActivateAccount />}
-                    />
+                    /> */}
                 </Route>
 
                 <Route
@@ -57,6 +57,26 @@ export const Router = () => {
                         </ProtectedRoute>
                     }
                 >
+                    <Route path={ROUTES.HOME} element={<Home />} />
+                    <Route path={ROUTES.LOGIN} element={<Login />} />
+
+                    <Route path={ROUTES.REGISTER} element={<Register />} />
+
+                    <Route
+                        path={ROUTES.REQUEST_PASSWORD_RESET}
+                        element={<RequestPasswordReset />}
+                    />
+
+                    <Route
+                        path={ROUTES.RESET_PASSWORD}
+                        element={<ResetPassword />}
+                    />
+
+                    <Route
+                        path={ROUTES.ACTIVATE_ACCOUNT}
+                        element={<ActivateAccount />}
+                    />
+
                     <Route path={ROUTES.FEED} element={<Feed />} />
 
                     <Route path={ROUTES.ADD_PRODUCT} element={<AddProduct />} />
