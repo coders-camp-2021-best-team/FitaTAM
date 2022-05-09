@@ -1,8 +1,14 @@
+import { theme } from '../../../config/theme';
+
 export const homeStyle = {
     pageBox: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        marginTop: '40px',
+        [theme.breakpoints.down('tablet')]: {
+            marginTop: '80px',
+        },
     },
     logoBox: {
         display: 'flex',
