@@ -6,30 +6,83 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import styled from '@emotion/styled';
 
 import { ROUTES } from '../../routes/Routes';
-import { loginStyle } from './Login.styles';
 import { loginUser } from '../../redux/slices/user';
 import { useState } from 'react';
+
+const StyledPageBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+const StyledSectionBox = styled(Box)`
+    margin: 80px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    @media (max-width: 480px) {
+        width: 383px;
+    }
+`;
+const StyledAvatar = styled(Avatar)`
+    margin: 8px;
+    background-color: #4caf50;
+    width: 70px;
+    height: 70px;
+    @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+    }
+`;
+const StyledAvatarLock = styled(Lock)`
+    font-size: 48px;
+    color: #fff;
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+const StyledTypography = styled(Typography)`
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+const StyledFormTextField = styled(TextField)`
+    width: 100%;
+    margin: 10px 0;
+`;
+const StyledErrorDiv = styled(Box)`
+    color: #ff0000;
+`;
+const StyledSignButton = styled(Button)`
+    width: 100%;
+    color: #fff;
+`;
+const StyledBottomSection = styled(Box)`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+`;
+const StyledNavLink = styled(NavLink)`
+    color: #000;
+`;
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     return (
-        <Box sx={loginStyle.pageBox}>
-            <Box sx={loginStyle.sectionBox}>
-                <Avatar sx={loginStyle.avatar}>
-                    <Lock sx={loginStyle.avatarLock} />
-                </Avatar>
+        <StyledPageBox>
+            <StyledSectionBox>
+                <StyledAvatar>
+                    <StyledAvatarLock />
+                </StyledAvatar>
 
-                <Typography
-                    component='h1'
-                    variant='h4'
-                    sx={loginStyle.typography}
-                >
-                    Sign in
-                </Typography>
+                <StyledTypography variant='h4'>Sign in</StyledTypography>
 
                 <form
                     onSubmit={(e) => {
@@ -41,16 +94,15 @@ export const Login = () => {
                         dispatch(loginUser(credentials));
                     }}
                 >
-                    <TextField
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete='email'
-                        sx={loginStyle.formTextField}
                     />
-                    <TextField
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Password'
@@ -58,33 +110,22 @@ export const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         type='password'
                         autoComplete='current-password'
-                        sx={loginStyle.formTextField}
                     />
-                    <div
-                        className='invalid-feedback'
-                        style={loginStyle.errorDiv}
-                    ></div>
-                    <Button
-                        variant='contained'
-                        sx={loginStyle.signButton}
-                        type='submit'
-                    >
+                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
+                    <StyledSignButton variant='contained' type='submit'>
                         Sign In
-                    </Button>
+                    </StyledSignButton>
                 </form>
 
-                <Box sx={loginStyle.bottomSection}>
-                    <NavLink
-                        to={ROUTES.REQUEST_PASSWORD_RESET}
-                        style={loginStyle.navLink}
-                    >
+                <StyledBottomSection>
+                    <StyledNavLink to={ROUTES.REQUEST_PASSWORD_RESET}>
                         Forgot password?
-                    </NavLink>
-                    <NavLink to={ROUTES.REGISTER} style={loginStyle.navLink}>
+                    </StyledNavLink>
+                    <StyledNavLink to={ROUTES.REGISTER}>
                         Don't have an account? Sign up
-                    </NavLink>
-                </Box>
-            </Box>
-        </Box>
+                    </StyledNavLink>
+                </StyledBottomSection>
+            </StyledSectionBox>
+        </StyledPageBox>
     );
 };
