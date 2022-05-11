@@ -1,0 +1,19 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Mariusz",
+      "email": "wp@wp.pl"
+    },
+    {
+      "email": "123",
+      "name": "Mariusz",
+      "id": 2
+    },
+    {
+      "email": "1234",
+      "name": "Mariusz",
+      "id": 3
+    }
+  ]
+}

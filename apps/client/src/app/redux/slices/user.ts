@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { User } from '../../types';
 
 export interface UserState {
@@ -9,19 +10,30 @@ const initialState: UserState = {
     value: null,
 };
 
-export const loginUser = createAsyncThunk('user', () => {
-    console.log('true');
-    // try {
-    //     const responese = await new Promise((resolve, reject) => {
-    //         setTimeout(
-    //             () => resolve({ id: '1', name: 'Mariusz', email: 'a@wp.pl' }),
-    //             1000
-    //         );
-    //     });
-    //     console.log(responese);
-    // } catch (error) {
-    //     console.error(error);
-    // }
+interface UserCredentials {
+    email: string;
+    password: string;
+}
+
+interface AyncThunkOptions {
+    rejectValue: string;
+    fulfilledMeta: null;
+}
+
+export const loginUser = createAsyncThunk<
+    User,
+    UserCredentials,
+    AyncThunkOptions
+>('user', async (credentials, thunkApi) => {
+    try {
+        const { data: user } = await axios.post<User>(
+            'http://localhost:3010/user',
+            { email: credentials.email, name: 'Mariusz' }
+        );
+        return thunkApi.fulfillWithValue(user, null);
+    } catch (error) {
+        return thunkApi.rejectWithValue('Sth went wrong');
+    }
 });
 
 export const userSlice = createSlice({
@@ -32,6 +44,11 @@ export const userSlice = createSlice({
             state.value = action.payload;
             console.log(state.value);
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.value = action.payload;
+        });
     },
 });
 
