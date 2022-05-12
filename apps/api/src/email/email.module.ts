@@ -1,0 +1,29 @@
+import { join } from 'path';
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+
+import { ConfigModule, ConfigService } from '../config';
+import { EmailService } from '.';
+
+@Module({
+    imports: [
+        MailerModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: async (config: ConfigService) => ({
+                ...config.mailerOptions(),
+                template: {
+                    dir: join('assets', 'email', 'templates'),
+                    adapter: new HandlebarsAdapter(),
+                    options: {
+                        strict: true,
+                    },
+                },
+            }),
+        }),
+    ],
+    providers: [EmailService],
+    exports: [EmailService],
+})
+export class EmailModule {}
