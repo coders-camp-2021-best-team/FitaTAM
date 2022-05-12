@@ -7,7 +7,7 @@ export const BaseScreen = () => {
     return (
         <div className='base-screen'>
             {isLogged ? <Header /> : null}
-            <main style={{ maxWidth: 480, margin: '0 auto' }}>
+            <main style={{ maxWidth: 480, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Outlet />
             </main>
         </div>
