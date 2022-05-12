@@ -8,7 +8,7 @@ export const BaseScreen = () => {
     return (
         <div className='base-screen'>
             {/* {isLogged ? <Header /> : null} */}
-            <main style={baseStyle.pageBox}>
+            <main style={{ maxWidth: 480, margin: '64px auto' }}>
                 <Outlet />
             </main>
         </div>
