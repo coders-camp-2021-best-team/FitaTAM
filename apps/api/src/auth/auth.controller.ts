@@ -1,9 +1,9 @@
 import { Controller, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard, Request } from '.';
+import { LoginGuard, Request } from '.';
 
 @Controller('auth')
 export class AuthController {
-    @UseGuards(AuthGuard)
+    @UseGuards(LoginGuard)
     @Post('login')
     login(@Req() req: Request) {
         return req.user;

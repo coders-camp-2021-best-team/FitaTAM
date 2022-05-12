@@ -1,6 +1,6 @@
 export * from './request.interface';
 export * from './cookie-expiry-time.enum';
-export * from './auth.guard';
+export * from './login.guard';
 export * from './cookie.guard';
 export * from './local.serializer';
 export * from './auth.controller';
