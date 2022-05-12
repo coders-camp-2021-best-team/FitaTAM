@@ -6,6 +6,7 @@ import {
     OneToOne,
     JoinColumn,
 } from 'typeorm';
+import { compareSync } from 'bcryptjs';
 import { MealPlanCategory, NutritionalValues, Dish, Token } from '..';
 import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
 
@@ -65,4 +66,16 @@ export class User {
 
     @OneToMany(() => Dish, (d) => d.author, { cascade: true })
     dishes: Dish[];
+
+    isAdmin() {
+        return this.account_role === AccountRole.ADMIN;
+    }
+
+    isAbleToLogin() {
+        return this.account_status === AccountStatus.ACTIVE;
+    }
+
+    verifyPassword(password: string) {
+        return compareSync(password, this.passwordHash);
+    }
 }
