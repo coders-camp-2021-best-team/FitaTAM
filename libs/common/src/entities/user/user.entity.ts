@@ -22,7 +22,7 @@ export class User {
     username: string;
 
     @Column()
-    passwordHash: string;
+    password_hash: string;
 
     @Column()
     first_name: string;
@@ -76,6 +76,6 @@ export class User {
     }
 
     verifyPassword(password: string) {
-        return compareSync(password, this.passwordHash);
+        return compareSync(password, this.password_hash);
     }
 }
