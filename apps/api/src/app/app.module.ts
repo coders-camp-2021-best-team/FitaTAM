@@ -5,16 +5,22 @@ import * as ConnectRedis from 'connect-redis';
 import { Redis } from 'ioredis';
 
 import { ConfigModule, ConfigService, NodeEnv } from '../config';
+import { REDIS, RedisModule } from '../redis';
 import { DatabaseModule } from '../database';
 import { AuthModule, CookieExpiryTime } from '../auth';
 import { UserModule } from '../user';
 import { AppController, AppService } from '.';
-import { REDIS } from '../redis';
 
 const RedisStore = ConnectRedis(session);
 
 @Module({
-    imports: [ConfigModule, DatabaseModule, AuthModule, UserModule],
+    imports: [
+        ConfigModule,
+        RedisModule,
+        DatabaseModule,
+        AuthModule,
+        UserModule,
+    ],
     controllers: [AppController],
     providers: [AppService],
 })
