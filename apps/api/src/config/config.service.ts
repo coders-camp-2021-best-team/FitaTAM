@@ -34,12 +34,13 @@ export class ConfigService {
         return this.env.get<string>('COOKIE_SECRET');
     }
 
-    redisOptions(): RedisOptions {
-        const REDIS_URL = this.env.get<string>('REDIS_URL');
+    get REDIS_URL() {
+        return this.env.get<string>('REDIS_URL');
+    }
 
+    redisOptions(): RedisOptions {
         return {
-            path: REDIS_URL,
-            tls: REDIS_URL.startsWith('rediss://')
+            tls: this.REDIS_URL.startsWith('rediss://')
                 ? { requestCert: true, rejectUnauthorized: false }
                 : undefined,
         };

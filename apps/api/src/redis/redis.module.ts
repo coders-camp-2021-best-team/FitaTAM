@@ -11,7 +11,7 @@ import { REDIS } from '.';
             inject: [ConfigService],
             provide: REDIS,
             useFactory: (config: ConfigService) =>
-                new Redis(config.redisOptions()),
+                new Redis(config.REDIS_URL, config.redisOptions()),
         },
     ],
     exports: [REDIS],
