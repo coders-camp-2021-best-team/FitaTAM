@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString, MinLength } from 'class-validator';
+import { randomBytes } from 'crypto';
 
 export enum NodeEnv {
     DEVELOPMENT = 'development',
@@ -17,6 +18,16 @@ export class Env {
 
     @IsString()
     CLIENT_URL: string;
+
+    @IsString()
+    CLIENT_CORS_WILDCARD_URL: string;
+
+    @IsString()
+    @MinLength(32)
+    COOKIE_SECRET: string = randomBytes(64).toString('base64');
+
+    @IsString()
+    REDIS_URL: string;
 
     @IsString()
     POSTGRES_HOST: string;
