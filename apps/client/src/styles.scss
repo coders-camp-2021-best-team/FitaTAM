@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-.base-screen{
-  display: flex;
-  flex-direction: column;
-  height: 500px;
-  width: 100%;
+body{
+  background-color: #edf7ed;
+  .base-screen{
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 100%;
+  }
 }
