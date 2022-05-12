@@ -14,7 +14,12 @@ async function bootstrap() {
     const env = app.get(ConfigService);
 
     app.enableCors({
-        origin: [env.CLIENT_URL],
+        origin: [
+            env.CLIENT_URL,
+            new RegExp(env.CLIENT_CORS_WILDCARD_URL),
+            'http://localhost',
+            'http://localhost:3000',
+        ],
         credentials: true,
     });
 
