@@ -8,7 +8,7 @@ export const ROUTES = {
   ACTIVATE_ACCOUNT: '/activate-account',
   
   FEED: '/feed',
-  PROFILE: '/profile',
+  SETTINGS: '/settings',
   ADD_PRODUCT: '/add-product',
   ADD_DISH: '/add-dish',
   SEARCH: '/search',
