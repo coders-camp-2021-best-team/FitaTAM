@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const ProtectedRoute = ({ children }: Props) => {
-  const user = User() //TODO connect with api
+    const user = User(); //TODO connect with api
 
     if (user.isLoading) return null;
 
