@@ -6,7 +6,9 @@ import {
     OneToOne,
     JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { compareSync } from 'bcryptjs';
+
 import { MealPlanCategory, NutritionalValues, Dish, Token } from '..';
 import { AccountRole, AccountStatus, Gender, Goal, PhysicalActivity } from '.';
 
@@ -21,6 +23,7 @@ export class User {
     @Column({ unique: true })
     username: string;
 
+    @Exclude()
     @Column()
     password_hash: string;
 
