@@ -24,9 +24,6 @@ const StyledSectionBox = styled(Box)`
     align-items: center;
     text-align: center;
     width: 90%;
-    @media (max-width: 480px) {
-        width: 383px;
-    }
 `;
 const StyledAvatar = styled(Avatar)`
     margin: 8px;

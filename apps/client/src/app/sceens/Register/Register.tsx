@@ -4,106 +4,177 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { registerStyle } from './Register.styles';
+import styled from '@emotion/styled';
 
 import { NavLink } from 'react-router-dom';
-
+import { useState } from 'react';
 import { ROUTES } from '../../routes/Routes';
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../../redux/slices/signupUser';
+
+const StyledPageBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+const StyledSectionBox = styled(Box)`
+    margin: 80px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+`;
+const StyledAvatar = styled(Avatar)`
+    margin: 8px;
+    background-color: #4caf50;
+    width: 70px;
+    height: 70px;
+    @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+    }
+`;
+const StyledAvatarLock = styled(Lock)`
+    font-size: 48px;
+    color: #fff;
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+const StyledInputsName = styled(Box)`
+    width: 100%;
+    display: ;flex;
+    flex-direciotn: row;
+    margin: 10px 0;
+`;
+const StyledFormTextFieldName = styled(TextField)`
+    width: 50%;
+`;
+const StyledFormTextField = styled(TextField)`
+    width: 100%;
+    margin: 10px 0;
+`;
+const StyledFormTextFieldBirtday = styled(TextField)`
+    width: 100%;
+    margin: 10px 0;
+`;
+const StyledErrorDiv = styled(Box)`
+    color: red;
+`;
+const StyledButtonSign = styled(Button)`
+    width: 100%;
+    color: #fff;
+`;
+const StyledSectionBottom = styled(Box)`
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 2rem;
+`;
+const StyledNavLink = styled(NavLink)`
+    color: #000;
+`;
 
 export const Register = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setlastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setConfirmpassword] = useState('');
+    const dispatch = useDispatch();
     return (
-        <Box sx={registerStyle.pageBox}>
-            <Box sx={registerStyle.sectionBox}>
-                <Avatar sx={registerStyle.avatar}>
-                    <Lock sx={registerStyle.avatarLock} />
-                </Avatar>
+        <StyledPageBox>
+            <StyledSectionBox>
+                <StyledAvatar>
+                    <StyledAvatarLock />
+                </StyledAvatar>
 
                 <Typography component='h1' variant='h4'>
                     Sign up
                 </Typography>
 
-                <form onSubmit={() => console.log('uzupelnic')}>
-                    <Box sx={registerStyle.inputsName}>
-                        <TextField
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        const credentialsSignup = {
+                            firstName: firstName,
+                            lastName: lastName,
+                            birthday: birthday,
+                            email: email,
+                            passwordHash: password,
+                            confirmPasswordHash: confirmpassword,
+                        };
+                        dispatch(signUpUser(credentialsSignup));
+                    }}
+                >
+                    <StyledInputsName>
+                        <StyledFormTextFieldName
                             variant='outlined'
                             required
                             label='First Name'
-                            sx={registerStyle.formTextFieldName}
+                            onChange={(e) => setFirstName(e.target.value)}
                         />
 
-                        <TextField
+                        <StyledFormTextFieldName
                             variant='outlined'
                             required
                             label='Last Name'
-                            sx={registerStyle.formTextFieldName}
+                            onChange={(e) => setlastName(e.target.value)}
                         />
-                    </Box>
+                    </StyledInputsName>
 
-                    <TextField
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Email Address'
                         type='email'
-                        sx={registerStyle.formTextField}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
-                    <div
-                        className='invalid-feedback'
-                        style={registerStyle.errorDiv}
-                    ></div>
+                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
-                    <TextField
+                    <StyledFormTextFieldBirtday
                         variant='outlined'
                         required
                         label='Birthdate'
                         type='date'
-                        sx={registerStyle.formTextFieldBirtday}
+                        sx={{ label: { display: 'none' } }}
+                        onChange={(e) => setBirthday(e.target.value)}
                     />
-                    <div
-                        className='invalid-feedback'
-                        style={registerStyle.errorDiv}
-                    ></div>
+                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
-                    <TextField
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Password'
                         type='password'
                         autoComplete='new-password'
-                        sx={registerStyle.formTextField}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                    <div
-                        className='invalid-feedback'
-                        style={registerStyle.errorDiv}
-                    ></div>
+                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
-                    <TextField
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Confirm Password'
                         type='password'
                         autoComplete='new-password'
-                        sx={registerStyle.formTextField}
+                        onChange={(e) => setConfirmpassword(e.target.value)}
                     />
-                    <div
-                        className='invalid-feedback'
-                        style={registerStyle.errorDiv}
-                    ></div>
+                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
-                    <Button
-                        variant='contained'
-                        sx={registerStyle.buttonSign}
-                        type='submit'
-                    >
+                    <StyledButtonSign variant='contained' type='submit'>
                         Sign Up
-                    </Button>
+                    </StyledButtonSign>
                 </form>
 
-                <Box sx={registerStyle.sectionBottom}>
-                    <NavLink to={ROUTES.LOGIN} style={registerStyle.navLink}>
+                <StyledSectionBottom>
+                    <StyledNavLink to={ROUTES.LOGIN}>
                         Already have an account? Sign in
-                    </NavLink>
-                </Box>
-            </Box>
-        </Box>
+                    </StyledNavLink>
+                </StyledSectionBottom>
+            </StyledSectionBox>
+        </StyledPageBox>
     );
 };

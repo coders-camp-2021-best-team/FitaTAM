@@ -1,44 +1,80 @@
 import Lock from '@mui/icons-material/Lock';
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
+import styled from '@emotion/styled';
 
-import { requestPasswordResetStyle } from './RequestPasswordReset.style';
+const StyledPageBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+const StyledSectionBox = styled(Box)`
+    margin: 80px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+`;
+const StyledAvatar = styled(Avatar)`
+    margin: 8px;
+    background-color: #4caf50;
+    width: 70px;
+    height: 70px;
+    @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+    }
+`;
+const StyledAvatarLock = styled(Lock)`
+    font-size: 48px;
+    color: #fff;
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+const StyledTypographyTop = styled(Typography)`
+    font-size: 48px;
+    color: #000;
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+const StyledFormStyle = styled.form`
+    width: 100%;
+`;
+const StyledFormTextField = styled(TextField)`
+    width: 100%;
+    margin: 10px 0;
+`;
+const StyledButtonSend = styled(Button)`
+    width: 100%;
+    color: #fff;
+`;
 
 export const RequestPasswordReset = () => {
     return (
-        <Box sx={requestPasswordResetStyle.pageBox}>
-            <Box sx={requestPasswordResetStyle.sectionBox}>
-                <Avatar sx={requestPasswordResetStyle.avatar}>
-                    <Lock sx={requestPasswordResetStyle.avatarLock} />
-                </Avatar>
+        <StyledPageBox>
+            <StyledSectionBox>
+                <StyledAvatar>
+                    <StyledAvatarLock />
+                </StyledAvatar>
 
-                <Typography
-                    component='h1'
-                    variant='h4'
-                    sx={requestPasswordResetStyle.typographyTop}
-                >
+                <StyledTypographyTop variant='h4'>
                     Forgot Password?
-                </Typography>
+                </StyledTypographyTop>
 
-                <form
-                    style={requestPasswordResetStyle.formStyle}
-                    onSubmit={() => console.log('uzupelnic')}
-                >
-                    <TextField
+                <StyledFormStyle onSubmit={() => console.log('uzupelnic')}>
+                    <StyledFormTextField
                         variant='outlined'
                         required
                         label='Email'
                         type='email'
-                        sx={requestPasswordResetStyle.formTextField}
                     />
-                    <Button
-                        variant='contained'
-                        sx={requestPasswordResetStyle.buttonSend}
-                        type='submit'
-                    >
+                    <StyledButtonSend variant='contained' type='submit'>
                         Send Email
-                    </Button>
-                </form>
-            </Box>
-        </Box>
+                    </StyledButtonSend>
+                </StyledFormStyle>
+            </StyledSectionBox>
+        </StyledPageBox>
     );
 };
