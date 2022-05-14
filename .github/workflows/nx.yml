@@ -23,7 +23,7 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
             - run: git fetch --no-tags --prune --depth=1 origin master
-            - run: yarn nx affected --parallel --target=test
+            - run: yarn nx affected --base=origin/master --parallel --target=test
 
     lint:
         runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
             - run: git fetch --no-tags --prune --depth=1 origin master
-            - run: yarn nx affected --parallel --target=lint
+            - run: yarn nx affected --base=origin/master --parallel --target=lint
 
     build:
         runs-on: ubuntu-latest
@@ -55,4 +55,4 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
             - run: git fetch --no-tags --prune --depth=1 origin master
-            - run: yarn nx affected --parallel --target=build --prod
+            - run: yarn nx affected --base=origin/master --parallel --target=build --prod
