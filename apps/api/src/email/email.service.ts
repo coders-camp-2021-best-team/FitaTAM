@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 
-import { User } from '@fitatam/common';
+import { Token, User } from '@fitatam/common';
 import { ConfigService } from '../config';
 
 @Injectable()
@@ -11,10 +11,14 @@ export class EmailService {
         private mailerService: MailerService
     ) {}
 
-    async confirmAccount(user: User, token: string) {
-        const url = `${this.config.CLIENT_URL}/activate/${token}`;
+    confirmAccount(user: User, token: Token) {
+        const url = `${
+            this.config.CLIENT_URL
+        }/activate/${token.getURIEncodedToken()}`;
 
-        await this.mailerService.sendMail({
+        console.log(url);
+
+        return this.mailerService.sendMail({
             to: user.email,
             subject: 'Welcome to FitaTAM',
             template: 'confirm-account',
@@ -24,15 +28,18 @@ export class EmailService {
             },
         });
     }
-    async resetPassword(user: User, token: string) {
-        const url = `${this.config.CLIENT_URL}/password-reset/${token}`;
 
-        await this.mailerService.sendMail({
+    resetPassword(user: User, token: Token) {
+        const url = `${
+            this.config.CLIENT_URL
+        }/password-reset/${token.getURIEncodedToken()}`;
+
+        return this.mailerService.sendMail({
             to: user.email,
             subject: 'Reset your FitaTAM account password',
             template: 'reset-password',
             context: {
-                username: user.username,
+                name: user.first_name,
                 reset_url: url,
             },
         });

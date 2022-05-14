@@ -36,7 +36,7 @@ export class Env {
 
     @IsString()
     @MinLength(32)
-    COOKIE_SECRET: string = randomBytes(64).toString('base64');
+    COOKIE_SECRET: string = randomBytes(64).toString('base64url');
 
     // REDIS
 

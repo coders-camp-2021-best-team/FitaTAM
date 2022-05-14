@@ -8,13 +8,14 @@ import { EmailService } from '.';
 
 @Module({
     imports: [
+        ConfigModule,
         MailerModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: async (config: ConfigService) => ({
                 ...config.mailerOptions(),
                 template: {
-                    dir: join('assets', 'email', 'templates'),
+                    dir: join(__dirname, 'assets', 'email', 'templates'),
                     adapter: new HandlebarsAdapter(),
                     options: {
                         strict: true,
