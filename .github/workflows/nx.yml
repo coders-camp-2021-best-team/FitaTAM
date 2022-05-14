@@ -1,0 +1,46 @@
+name: Nx
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    install-deps:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Cache node modules
+                uses: actions/cache@v2
+                with:
+                    path: node_modules
+                    key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - name: Cache Nx
+                uses: actions/cache@v2
+                with:
+                path: node_modules/.cache/nx
+                key: cache-nx-${{ hashFiles('yarn.lock') }}-${{ matrix.target }}-${{ matrix.jobIndex }}-${{ github.sha }}
+                restore-keys: |
+                    cache-nx-${{ hashFiles('yarn.lock') }}-${{ matrix.target }}-${{ matrix.jobIndex }}-
+                    cache-nx-${{ hashFiles('yarn.lock') }}-
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: yarn nx affected --parallel --target=test
+
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: yarn nx affected --parallel --target=lint
+
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: yarn nx affected --parallel --target=build --prod
