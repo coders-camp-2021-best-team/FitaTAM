@@ -9,7 +9,7 @@ on:
             - master
 
 jobs:
-    test:
+    install-deps:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -19,13 +19,27 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - run: git fetch --no-tags --prune --depth=1 origin master
             - name: yarn install
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
+
+    test:
+        needs: install-deps
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('yarn.lock') }}
             - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --base=origin/master --parallel --target=test
 
     lint:
+        needs: install-deps
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -35,13 +49,11 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
-            - name: yarn install
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: yarn install --frozen-lockfile
             - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --base=origin/master --parallel --target=lint
 
     build:
+        needs: install-deps
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -51,8 +63,5 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
-            - name: yarn install
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: yarn install --frozen-lockfile
             - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --base=origin/master --parallel --target=build --prod
