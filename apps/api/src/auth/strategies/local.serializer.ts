@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
 
 import { User } from '@fitatam/common';
-import { UserService } from '../user';
+import { UserService } from '../../user';
 
 @Injectable()
 export class LocalSerializer extends PassportSerializer {
