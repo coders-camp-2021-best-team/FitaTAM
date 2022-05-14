@@ -67,6 +67,7 @@ export class ConfigService {
                     user: this.env.get('SMTP_USERNAME'),
                     pass: this.env.get('SMTP_PASSWORD'),
                 },
+                logger: true,
             },
             defaults: {
                 from: this.env.get('EMAIL_FROM'),
