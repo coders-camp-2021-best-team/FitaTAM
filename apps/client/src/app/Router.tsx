@@ -9,7 +9,7 @@ import {
     Home,
     Login,
     NotFound,
-    Profile,
+    Settings,
     Register,
     ResetPassword,
     Search,
@@ -65,10 +65,7 @@ export const Router = () => {
 
                     <Route path={ROUTES.ADD_DISH} element={<AddDish />} />
 
-                    <Route
-                        path={`${ROUTES.PROFILE}`}
-                        element={<Profile />}
-                    />
+                    <Route path={ROUTES.SETTINGS} element={<Settings />} />
 
                     <Route path={ROUTES.SEARCH} element={<Search />} />
                 </Route>
