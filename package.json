@@ -3,10 +3,15 @@
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
-        "start:client": "nx serve",
+        "start:client": "nx serve client",
+        "start:api": "nx serve api",
+        "start:all": "nx run-many --parallel --all --target=serve",
         "build:client": "nx run client:build:production",
+        "build:api": "nx run api:build:production",
+        "build:all": "nx run-many --parallel --all --target=build --prod",
         "lint:client": "nx run client:lint",
         "lint:api": "nx run api:lint",
+        "lint:all": "nx run-many --parallel --all --target=lint",
         "graph": "nx graph"
     },
     "private": true,
