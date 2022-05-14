@@ -37,9 +37,9 @@ export const Dish = ({dish, name}: props) => {
       <DishBox>
         <Box>
           <Typography variant='h6'>
-            {name} <IconButton onClick={() => setSeeMore((prev) => !prev)}>{!seeMore ? <ExpandMore/> : <ExpandLess/>}</IconButton>
+            {name} {dish.kcal !== '0' ? <IconButton onClick={() => setSeeMore((prev) => !prev)}>{!seeMore ? <ExpandMore/> : <ExpandLess/>}</IconButton> : null}
           </Typography>
-          <Typography sx={{fontSize: '13px'}}>{dish.kcal} kcal B: {dish.B} T: {dish.T} W: {dish.W}</Typography>
+          <Typography sx={{fontSize: '13px'}}>{dish.kcal} kcal{dish.kcal !== '0' ?  `B: ${dish.B} T: ${dish.T} W: ${dish.W}` : null }</Typography>
         </Box>
         <AddButton>
           <Add />

@@ -57,7 +57,7 @@ export const Feed = () => {
         {week.map((day) => <PaginationDay page={convertDate(day)} key={day.toString()} size='large' shape='rounded' />)}
       </DayPicker>
       <DayOfWeek>{dayOfTheWeek(new Date().getDay())}</DayOfWeek>
-      {dishes.map((dish) => <Dish dish={dishes[dish]} name={dish}/>)}
+      {dishes.map((dish) => <Dish dish={day[dish]} name={dish}/>)}
     </>
   )
 }
