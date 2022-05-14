@@ -1,7 +1,8 @@
-import { User } from '@fitatam/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { User } from '@fitatam/common';
 
 @Injectable()
 export class UserService {
@@ -11,9 +12,9 @@ export class UserService {
         return this.users.findOneOrFail({ where: { id } });
     }
 
-    async findOne(emailOrUsername: string) {
+    async findOne(email: string) {
         return this.users.findOneOrFail({
-            where: [{ email: emailOrUsername }, { username: emailOrUsername }],
+            where: [{ email }],
         });
     }
 }
