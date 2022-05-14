@@ -4,7 +4,7 @@ import {
     OneToOne,
     Column,
     PrimaryGeneratedColumn,
-    JoinColumn
+    JoinColumn,
 } from 'typeorm';
 import { Dish } from '../dish';
 import { Product } from '../product';
