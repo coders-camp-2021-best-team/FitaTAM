@@ -20,7 +20,6 @@ jobs:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
             - name: yarn install
-              if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --pure-lockfile
             - uses: actions/checkout@v2
             - run: yarn nx affected --parallel --target=test
