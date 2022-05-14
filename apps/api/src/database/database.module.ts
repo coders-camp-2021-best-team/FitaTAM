@@ -21,7 +21,7 @@ import { ConfigModule, ConfigService, NodeEnv } from '../config';
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
                 ...configService.databaseCredentials(),
-                logging: configService.NODE_ENV === NodeEnv.DEVELOPMENT,
+                // logging: configService.NODE_ENV === NodeEnv.DEVELOPMENT,
                 synchronize: configService.NODE_ENV === NodeEnv.DEVELOPMENT,
                 entities: [
                     Dish,

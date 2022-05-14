@@ -12,4 +12,8 @@ export class Token {
 
     @ManyToOne(() => User, (u) => u.tokens, { onDelete: 'CASCADE' })
     user: User;
+
+    getURIEncodedToken() {
+        return encodeURIComponent(this.token);
+    }
 }
