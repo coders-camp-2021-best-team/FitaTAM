@@ -19,7 +19,6 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
-            - run: git fetch --no-tags --prune --depth=1 origin master
             - name: yarn install
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
@@ -36,6 +35,8 @@ jobs:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
             - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
             - run: yarn nx affected --parallel --target=test
 
     lint:
@@ -50,6 +51,8 @@ jobs:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
             - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
             - run: yarn nx affected --parallel --target=lint
 
     build:
@@ -64,4 +67,6 @@ jobs:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
             - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
             - run: yarn nx affected --parallel --target=build --prod
