@@ -19,29 +19,26 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
-            - name: Cache Nx
-              uses: actions/cache@v2
-              with:
-                  path: node_modules/.cache/nx
-                  key: cache-nx-${{ hashFiles('yarn.lock') }}
-                  restore-keys: cache-nx-${{ hashFiles('yarn.lock') }}-
             - name: yarn install
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn install --pure-lockfile
 
     test:
+        needs: install-deps
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
             - run: yarn nx affected --parallel --target=test
 
     lint:
+        needs: install-deps
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
             - run: yarn nx affected --parallel --target=lint
 
     build:
+        needs: install-deps
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
