@@ -19,6 +19,10 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - name: yarn install
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
+            - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --parallel --target=test
 
     lint:
@@ -31,6 +35,10 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - name: yarn install
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
+            - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --parallel --target=lint
 
     build:
@@ -43,4 +51,8 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - name: yarn install
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
+            - run: git fetch --no-tags --prune --depth=1 origin master
             - run: yarn nx affected --parallel --target=build --prod
