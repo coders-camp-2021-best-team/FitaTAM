@@ -10,7 +10,9 @@
         "build:api": "nx run api:build:production",
         "build:all": "nx run-many --parallel --all --target=build --prod",
         "lint:client": "nx run client:lint",
+        "lint:client:fix": "nx run client:lint --fix",
         "lint:api": "nx run api:lint",
+        "lint:api:fix": "nx run api:lint --fix",
         "lint:all": "nx run-many --parallel --all --target=lint",
         "graph": "nx graph"
     },

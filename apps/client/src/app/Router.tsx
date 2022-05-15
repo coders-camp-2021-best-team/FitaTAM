@@ -22,7 +22,7 @@ export const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {/* <Route
+                <Route
                     element={
                         <LoggedOutRoute>
                             <BaseScreen />
@@ -48,7 +48,7 @@ export const Router = () => {
                         path={`${ROUTES.ACTIVATE_ACCOUNT}/:token`}
                         element={<ActivateAccount />}
                     />
-                </Route> */}
+                </Route>
 
                 <Route
                     element={
