@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk<
         //         lastName: 'Kowalski',
         //     }
         // );
-            // kolejny strzał do api     GET /user/:id
+        // kolejny strzał do api     GET /user/:id
 
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
