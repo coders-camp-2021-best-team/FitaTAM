@@ -7,6 +7,4 @@ export interface User {
     passwordHash: string;
     confirmPasswordHash: string;
     birthday: string;
-    weight: number;
-    height: number;
 }

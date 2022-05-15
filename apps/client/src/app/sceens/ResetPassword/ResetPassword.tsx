@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '../../redux/slices/resetPassword';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -52,6 +55,9 @@ const StyledButtonSend = styled(Button)`
 `;
 
 export const ResetPassword = () => {
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setConfirmpassword] = useState('');
+    const dispatch = useDispatch();
     return (
         <StyledPageBox>
             <StyledSectionBox>
@@ -63,12 +69,18 @@ export const ResetPassword = () => {
                     Reset Password
                 </Typography>
 
-                <StyledFormStyle onSubmit={() => console.log('uzupelnic')}>
+                <StyledFormStyle onSubmit={(e) => {e.preventDefault(); const credentialsResetPassword = {
+                    passwordHash: password,
+                    confirmPasswordHash: confirmpassword,
+                    };
+                    dispatch(resetPassword(credentialsResetPassword));
+                }}
+                >
                     <StyledFormTextField
                         variant='outlined'
                         required
                         label='New Password'
-                        type='password'
+                        onChange={(e) => setPassword(e.target.value)}
                         autoComplete='new-password'
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
@@ -77,7 +89,7 @@ export const ResetPassword = () => {
                         variant='outlined'
                         required
                         label='Repeat Password'
-                        type='password'
+                        onChange={(e) => setConfirmpassword(e.target.value)}
                         autoComplete='new-password'
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>

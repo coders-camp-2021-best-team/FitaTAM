@@ -10,9 +10,8 @@ const initialState: UserState = {
     value: null,
 };
 
-interface UserCredentials {
+interface ReqPasswordResetCredentials {
     email: string;
-    password: string;
 }
 
 interface AyncThunkOptions {
@@ -20,15 +19,17 @@ interface AyncThunkOptions {
     fulfilledMeta: null;
 }
 
-export const loginUser = createAsyncThunk<
+export const reqPasswordReset = createAsyncThunk<
     User,
-    UserCredentials,
+    ReqPasswordResetCredentials,
     AyncThunkOptions
->('user', async (credentials, thunkApi) => {
+>('user', async (credentialsReqPasswordReset, thunkApi) => {
     try {
         const { data: user } = await axios.post<User>(
-            'http://localhost:3010/user', // /auth/login
-            { email: credentials.email, name: 'Mariusz' }
+            'http://localhost:3010/auth/request-password-reset',
+            {
+                email: credentialsReqPasswordReset.email,
+            }
         );
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
@@ -36,8 +37,8 @@ export const loginUser = createAsyncThunk<
     }
 });
 
-export const userSlice = createSlice({
-    name: 'user',
+export const ReqPasswordResetSlice = createSlice({
+    name: 'ReqPasswordResetSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
@@ -46,13 +47,13 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(loginUser.fulfilled, (state, action) => {
+        builder.addCase(reqPasswordReset.fulfilled, (state, action) => {
             state.value = action.payload;
         });
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions;
+export const { setUser } = ReqPasswordResetSlice.actions;
 
-export const userReducer = userSlice.reducer;
+export const reqPasswordResetReducer = ReqPasswordResetSlice.reducer;

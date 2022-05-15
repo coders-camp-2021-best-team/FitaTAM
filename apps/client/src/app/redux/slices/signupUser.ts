@@ -10,7 +10,7 @@ const initialState: UserState = {
     value: null,
 };
 
-interface RegisterUserCredentials {
+interface SignUpCredentials {
     firstName: string;
     lastName: string;
     birthday: string;
@@ -26,12 +26,12 @@ interface AyncThunkOptions {
 
 export const signUpUser = createAsyncThunk<
     User,
-    RegisterUserCredentials,
+    SignUpCredentials,
     AyncThunkOptions
 >('user', async (credentialsSignup, thunkApi) => {
     try {
         const { data: user } = await axios.post<User>(
-            'http://localhost:3010/user/auth',
+            'http://localhost:3010/auth/register',
             {
                 email: credentialsSignup.email,
                 firstName: 'Jan',
@@ -44,8 +44,8 @@ export const signUpUser = createAsyncThunk<
     }
 });
 
-export const registerUserSlice = createSlice({
-    name: 'registerUser',
+export const SingUpSlice = createSlice({
+    name: 'SingUpSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
@@ -61,6 +61,6 @@ export const registerUserSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = registerUserSlice.actions;
+export const { setUser } = SingUpSlice.actions;
 
-export const signUpUserReducer = registerUserSlice.reducer;
+export const signUpReducer = SingUpSlice.reducer;

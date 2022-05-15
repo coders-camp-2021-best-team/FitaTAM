@@ -1,6 +1,9 @@
 import Lock from '@mui/icons-material/Lock';
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { reqPasswordReset } from '../../redux/slices/reqPasswordReset';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -52,6 +55,8 @@ const StyledButtonSend = styled(Button)`
 `;
 
 export const RequestPasswordReset = () => {
+    const [email, setEmail] = useState('')
+    const dispatch = useDispatch();
     return (
         <StyledPageBox>
             <StyledSectionBox>
@@ -63,12 +68,17 @@ export const RequestPasswordReset = () => {
                     Forgot Password?
                 </StyledTypographyTop>
 
-                <StyledFormStyle onSubmit={() => console.log('uzupelnic')}>
+                <StyledFormStyle onSubmit={(e) => {e.preventDefault(); const credentialsReqPasswordReset = {
+                    email: email,
+                };
+                dispatch(reqPasswordReset(credentialsReqPasswordReset));
+                }}
+                >
                     <StyledFormTextField
                         variant='outlined'
                         required
                         label='Email'
-                        type='email'
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <StyledButtonSend variant='contained' type='submit'>
                         Send Email

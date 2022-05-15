@@ -10,9 +10,9 @@ const initialState: UserState = {
     value: null,
 };
 
-interface UserCredentials {
-    email: string;
-    password: string;
+interface ResetPasswordCredentials {
+    passwordHash: string;
+    confirmPasswordHash: string;
 }
 
 interface AyncThunkOptions {
@@ -20,15 +20,18 @@ interface AyncThunkOptions {
     fulfilledMeta: null;
 }
 
-export const loginUser = createAsyncThunk<
+export const resetPassword = createAsyncThunk<
     User,
-    UserCredentials,
+    ResetPasswordCredentials,
     AyncThunkOptions
->('user', async (credentials, thunkApi) => {
+>('user', async (credentialsResetPassword, thunkApi) => {
     try {
         const { data: user } = await axios.post<User>(
-            'http://localhost:3010/user', // /auth/login
-            { email: credentials.email, name: 'Mariusz' }
+            'http://localhost:3010/auth/password-reset',
+            {
+                passwordHash: credentialsResetPassword.passwordHash,
+                confirmpasswordHash: credentialsResetPassword.confirmPasswordHash,
+            }
         );
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
@@ -36,8 +39,8 @@ export const loginUser = createAsyncThunk<
     }
 });
 
-export const userSlice = createSlice({
-    name: 'user',
+export const ResetPasswordSlice = createSlice({
+    name: 'ResetPasswordSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
@@ -46,13 +49,13 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(loginUser.fulfilled, (state, action) => {
+        builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.value = action.payload;
         });
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions;
+export const { setUser } = ResetPasswordSlice.actions;
 
-export const userReducer = userSlice.reducer;
+export const resetPasswordReducer = ResetPasswordSlice.reducer;
