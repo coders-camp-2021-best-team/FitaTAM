@@ -30,8 +30,6 @@ async function bootstrap() {
         new ClassSerializerInterceptor(app.get(Reflector))
     );
 
-    app.setGlobalPrefix('/api');
-
     const config = new DocumentBuilder()
         .setTitle('FitaTAM API Docs')
         .addCookieAuth()
