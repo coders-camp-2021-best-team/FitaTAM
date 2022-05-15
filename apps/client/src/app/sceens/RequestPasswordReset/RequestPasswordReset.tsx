@@ -78,6 +78,7 @@ export const RequestPasswordReset = () => {
                         variant='outlined'
                         required
                         label='Email'
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <StyledButtonSend variant='contained' type='submit'>

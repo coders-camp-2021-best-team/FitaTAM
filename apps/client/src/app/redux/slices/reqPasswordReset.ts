@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { User } from '../../types';
+import { User } from '@fitatam/common';
 
 export interface UserState {
     value: User | null;
@@ -37,8 +37,8 @@ export const reqPasswordReset = createAsyncThunk<
     }
 });
 
-export const ReqPasswordResetSlice = createSlice({
-    name: 'ReqPasswordResetSlice',
+export const reqPasswordResetSlice = createSlice({
+    name: 'reqPasswordResetSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
@@ -54,6 +54,6 @@ export const ReqPasswordResetSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = ReqPasswordResetSlice.actions;
+export const { setUser } = reqPasswordResetSlice.actions;
 
-export const reqPasswordResetReducer = ReqPasswordResetSlice.reducer;
+export const reqPasswordResetReducer = reqPasswordResetSlice.reducer;

@@ -1,22 +1,25 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { User } from '../../types';
+import { User } from '@fitatam/common';
+import { RootState } from '../store';
 
 export interface UserState {
     value: User | null;
+    successfulMailSent: boolean;
 }
 
 const initialState: UserState = {
     value: null,
+    successfulMailSent: false
 };
 
 interface SignUpCredentials {
     firstName: string;
     lastName: string;
-    birthday: string;
+    birthday: Date;
     email: string;
-    passwordHash: string;
-    confirmPasswordHash: string;
+    password: string;
+    confirmPassword: string;
 }
 
 interface AyncThunkOptions {
@@ -31,11 +34,11 @@ export const signUpUser = createAsyncThunk<
 >('user', async (credentialsSignup, thunkApi) => {
     try {
         const { data: user } = await axios.post<User>(
-            'http://localhost:3010/auth/register',
+            '/auth/register',
             {
-                email: credentialsSignup.email,
                 firstName: 'Jan',
                 lastName: 'Kowalski',
+                email: credentialsSignup.email,
             }
         );
         return thunkApi.fulfillWithValue(user, null);
@@ -44,8 +47,8 @@ export const signUpUser = createAsyncThunk<
     }
 });
 
-export const SingUpSlice = createSlice({
-    name: 'SingUpSlice',
+export const singUpSlice = createSlice({
+    name: 'singUpSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
@@ -56,11 +59,16 @@ export const SingUpSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(signUpUser.fulfilled, (state, action) => {
             state.value = action.payload;
+            state.successfulMailSent = true;
         });
     },
 });
 
-// Action creators are generated for each case reducer function
-export const { setUser } = SingUpSlice.actions;
+export const selectIsMainSent = (state:RootState) => {
+    return state.singUpSlice.successfulMailSent;
+}
 
-export const signUpReducer = SingUpSlice.reducer;
+// Action creators are generated for each case reducer function
+export const { setUser } = singUpSlice.actions;
+
+export const signUpReducer = singUpSlice.reducer;

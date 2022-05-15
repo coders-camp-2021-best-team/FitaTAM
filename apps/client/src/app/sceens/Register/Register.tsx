@@ -80,9 +80,9 @@ export const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setlastName] = useState('');
     const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [birthday, setBirthday] = useState<Date>(new Date());
     const [password, setPassword] = useState('');
-    const [confirmpassword, setConfirmpassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const dispatch = useDispatch();
     return (
         <StyledPageBox>
@@ -103,8 +103,8 @@ export const Register = () => {
                             lastName: lastName,
                             birthday: birthday,
                             email: email,
-                            passwordHash: password,
-                            confirmPasswordHash: confirmpassword,
+                            password: password,
+                            confirmPassword: confirmPassword,
                         };
                         dispatch(signUpUser(credentialsSignup));
                     }}
@@ -114,6 +114,7 @@ export const Register = () => {
                             variant='outlined'
                             required
                             label='First Name'
+                            value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
 
@@ -121,6 +122,7 @@ export const Register = () => {
                             variant='outlined'
                             required
                             label='Last Name'
+                            value={lastName}
                             onChange={(e) => setlastName(e.target.value)}
                         />
                     </StyledInputsName>
@@ -130,6 +132,7 @@ export const Register = () => {
                         required
                         label='Email Address'
                         type='email'
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
@@ -140,7 +143,8 @@ export const Register = () => {
                         label='Birthdate'
                         type='date'
                         sx={{ label: { display: 'none' } }}
-                        onChange={(e) => setBirthday(e.target.value)}
+                        value={birthday}
+                        onChange={(e) => setBirthday(new Date(e.target.value))}
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
@@ -149,6 +153,7 @@ export const Register = () => {
                         required
                         label='Password'
                         type='password'
+                        value={password}
                         autoComplete='new-password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -159,8 +164,9 @@ export const Register = () => {
                         required
                         label='Confirm Password'
                         type='password'
+                        value={confirmPassword}
                         autoComplete='new-password'
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 

@@ -1,21 +1,18 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { counterReducer } from './slices/counter';
 import { signUpReducer } from './slices/signupUser';
-import { userReducer } from './slices/user';
+import { signInReducer } from './slices/signInUser';
 import { reqPasswordResetReducer } from './slices/reqPasswordReset';
 import { resetPasswordReducer } from './slices/resetPassword';
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        user: userReducer,
-        SingUpSlice: signUpReducer,
-        ReqPasswordResetSlice: reqPasswordResetReducer,
-        ResetPasswordSlice: resetPasswordReducer,
-    },
-    middleware: (test1) => {
-        return test1();
-    },
+        signInSlice: signInReducer,
+        singUpSlice: signUpReducer,
+        reqPasswordResetSlice: reqPasswordResetReducer,
+        resetPasswordSlice: resetPasswordReducer,
+    }
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

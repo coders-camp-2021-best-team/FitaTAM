@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 
 import { ROUTES } from '../../routes/Routes';
-import { loginUser } from '../../redux/slices/user';
+import { loginUser } from '../../redux/slices/signInUser';
 import { useState } from 'react';
 
 const StyledPageBox = styled(Box)`

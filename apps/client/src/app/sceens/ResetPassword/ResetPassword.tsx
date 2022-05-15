@@ -70,8 +70,8 @@ export const ResetPassword = () => {
                 </Typography>
 
                 <StyledFormStyle onSubmit={(e) => {e.preventDefault(); const credentialsResetPassword = {
-                    passwordHash: password,
-                    confirmPasswordHash: confirmpassword,
+                    password: password,
+                    confirmPassword: confirmpassword,
                     };
                     dispatch(resetPassword(credentialsResetPassword));
                 }}
@@ -80,6 +80,7 @@ export const ResetPassword = () => {
                         variant='outlined'
                         required
                         label='New Password'
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete='new-password'
                     />
@@ -89,6 +90,7 @@ export const ResetPassword = () => {
                         variant='outlined'
                         required
                         label='Repeat Password'
+                        value={confirmpassword}
                         onChange={(e) => setConfirmpassword(e.target.value)}
                         autoComplete='new-password'
                     />
