@@ -12,6 +12,7 @@ There are also many [community plugins](https://nx.dev/community) you could add.
 
 -   `yarn start:client` - starts client's developer server
 -   `yarn lint:client/api` - runs linter for client/api app
+-   `yarn lint:client/api:fix` - run linter with --fix flag to fix all of the quick fixes in workspace
 -   `yarn graph` - start live server with graph of the monorepo
 -   `yarn build:client` - build production client's app
 
