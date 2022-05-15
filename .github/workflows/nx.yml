@@ -1,0 +1,78 @@
+name: Nx
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    install-deps:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - name: yarn install
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn install --frozen-lockfile
+
+    test:
+        needs: install-deps
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
+            - run: yarn nx affected --parallel --target=test
+
+    lint:
+        needs: install-deps
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
+            - run: yarn nx affected --parallel --target=lint
+
+    build:
+        needs: install-deps
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - name: Cache node modules
+              id: cache
+              uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('yarn.lock') }}
+            - uses: nrwl/nx-set-shas@v2
+              with:
+                  main-branch-name: master
+            - run: yarn nx affected --parallel --target=build --prod
