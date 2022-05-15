@@ -69,12 +69,15 @@ export const ResetPassword = () => {
                     Reset Password
                 </Typography>
 
-                <StyledFormStyle onSubmit={(e) => {e.preventDefault(); const credentialsResetPassword = {
-                    password: password,
-                    confirmPassword: confirmpassword,
-                    };
-                    dispatch(resetPassword(credentialsResetPassword));
-                }}
+                <StyledFormStyle
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        const credentialsResetPassword = {
+                            password: password,
+                            confirmPassword: confirmpassword,
+                        };
+                        dispatch(resetPassword(credentialsResetPassword));
+                    }}
                 >
                     <StyledFormTextField
                         variant='outlined'

@@ -12,7 +12,7 @@ export const store = configureStore({
         singUpSlice: signUpReducer,
         reqPasswordResetSlice: reqPasswordResetReducer,
         resetPasswordSlice: resetPasswordReducer,
-    }
+    },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

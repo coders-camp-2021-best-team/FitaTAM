@@ -55,7 +55,7 @@ const StyledButtonSend = styled(Button)`
 `;
 
 export const RequestPasswordReset = () => {
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
     const dispatch = useDispatch();
     return (
         <StyledPageBox>
@@ -68,11 +68,14 @@ export const RequestPasswordReset = () => {
                     Forgot Password?
                 </StyledTypographyTop>
 
-                <StyledFormStyle onSubmit={(e) => {e.preventDefault(); const credentialsReqPasswordReset = {
-                    email: email,
-                };
-                dispatch(reqPasswordReset(credentialsReqPasswordReset));
-                }}
+                <StyledFormStyle
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        const credentialsReqPasswordReset = {
+                            email: email,
+                        };
+                        dispatch(reqPasswordReset(credentialsReqPasswordReset));
+                    }}
                 >
                     <StyledFormTextField
                         variant='outlined'

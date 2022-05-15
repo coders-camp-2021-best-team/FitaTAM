@@ -10,7 +10,7 @@ export interface UserState {
 
 const initialState: UserState = {
     value: null,
-    successfulMailSent: false
+    successfulMailSent: false,
 };
 
 interface SignUpCredentials {
@@ -33,14 +33,11 @@ export const signUpUser = createAsyncThunk<
     AyncThunkOptions
 >('user', async (credentialsSignup, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>(
-            '/auth/register',
-            {
-                firstName: 'Jan',
-                lastName: 'Kowalski',
-                email: credentialsSignup.email,
-            }
-        );
+        const { data: user } = await axios.post<User>('/auth/register', {
+            firstName: 'Jan',
+            lastName: 'Kowalski',
+            email: credentialsSignup.email,
+        });
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
         return thunkApi.rejectWithValue('Sth went wrong');
@@ -64,9 +61,9 @@ export const singUpSlice = createSlice({
     },
 });
 
-export const selectIsMainSent = (state:RootState) => {
+export const selectIsMainSent = (state: RootState) => {
     return state.singUpSlice.successfulMailSent;
-}
+};
 
 // Action creators are generated for each case reducer function
 export const { setUser } = singUpSlice.actions;

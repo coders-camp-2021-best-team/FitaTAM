@@ -11,7 +11,6 @@ import { Router } from './Router';
 
 // apiClient.get()
 
-
 export function App() {
     return <Router />;
 }
