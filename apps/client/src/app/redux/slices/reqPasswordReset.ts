@@ -1,13 +1,12 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { User } from '@fitatam/common';
 
-export interface UserState {
-    value: User | null;
+export interface ResetPasswordState {
+    msg: string;
 }
 
-const initialState: UserState = {
-    value: null,
+const initialState: ResetPasswordState = {
+    msg: '',
 };
 
 interface ReqPasswordResetCredentials {
@@ -20,18 +19,18 @@ interface AyncThunkOptions {
 }
 
 export const reqPasswordReset = createAsyncThunk<
-    User,
+    ResetPasswordState,
     ReqPasswordResetCredentials,
     AyncThunkOptions
->('user', async (credentialsReqPasswordReset, thunkApi) => {
+>('resetPassword', async (credentialsReqPasswordReset, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>(
-            'http://localhost:3010/auth/request-password-reset',
+        const { data } = await axios.post<{ msg: string }>(
+            'http://localhost:3010/request-password-reset',
             {
                 email: credentialsReqPasswordReset.email,
             }
         );
-        return thunkApi.fulfillWithValue(user, null);
+        return thunkApi.fulfillWithValue(data, null);
     } catch (error) {
         return thunkApi.rejectWithValue('Sth went wrong');
     }
@@ -40,20 +39,12 @@ export const reqPasswordReset = createAsyncThunk<
 export const reqPasswordResetSlice = createSlice({
     name: 'reqPasswordResetSlice',
     initialState,
-    reducers: {
-        setUser: (state, action: PayloadAction<User | null>) => {
-            state.value = action.payload;
-            console.log(state.value);
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(reqPasswordReset.fulfilled, (state, action) => {
-            state.value = action.payload;
+            state.msg = action.payload.msg;
         });
     },
 });
-
-// Action creators are generated for each case reducer function
-export const { setUser } = reqPasswordResetSlice.actions;
 
 export const reqPasswordResetReducer = reqPasswordResetSlice.reducer;

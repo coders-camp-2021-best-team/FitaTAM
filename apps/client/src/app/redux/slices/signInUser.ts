@@ -28,18 +28,8 @@ export const loginUser = createAsyncThunk<
     try {
         const { data: user } = await axios.post<User>(
             'http://localhost:3010/user', // /auth/login
-            { email: credentials.email, name: 'Mariusz' }
+            { email: credentials.email, password: credentials.password }
         );
-
-        // const { data: user } = await axios.post<User>(
-        //     'http://localhost:3010/auth/register',
-        //     {
-        //         email: credentialsSignup.email,
-        //         firstName: 'Jan',
-        //         lastName: 'Kowalski',
-        //     }
-        // );
-        // kolejny strzał do api     GET /user/:id
 
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {

@@ -5,12 +5,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
-
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { ROUTES } from '../../routes/Routes';
-import { useDispatch } from 'react-redux';
-import { signUpUser } from '../../redux/slices/signupUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsMailSent, signUpUser } from '../../redux/slices/signupUser';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -80,10 +80,30 @@ export const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setlastName] = useState('');
     const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState<Date>(new Date());
+    const [birthday, setBirthday] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isMailSent = useSelector(selectIsMailSent);
+
+    const resetFormFields = () => {
+        setFirstName('');
+        setlastName('');
+        setEmail('');
+        setBirthday('');
+        setPassword('');
+        setConfirmPassword('');
+    };
+
+    useEffect(() => {
+        if (isMailSent) {
+            toast('Email has been sent');
+            resetFormFields();
+            navigate(ROUTES.LOGIN);
+        }
+    }, [isMailSent, navigate]);
+
     return (
         <StyledPageBox>
             <StyledSectionBox>
@@ -101,7 +121,7 @@ export const Register = () => {
                         const credentialsSignup = {
                             firstName: firstName,
                             lastName: lastName,
-                            birthday: birthday,
+                            birthday: new Date(birthday),
                             email: email,
                             password: password,
                             confirmPassword: confirmPassword,
@@ -144,7 +164,9 @@ export const Register = () => {
                         type='date'
                         sx={{ label: { display: 'none' } }}
                         value={birthday}
-                        onChange={(e) => setBirthday(new Date(e.target.value))}
+                        onChange={(e) => {
+                            setBirthday(e.target.value);
+                        }}
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 

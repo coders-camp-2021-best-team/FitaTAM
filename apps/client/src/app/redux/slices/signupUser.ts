@@ -33,11 +33,14 @@ export const signUpUser = createAsyncThunk<
     AyncThunkOptions
 >('user', async (credentialsSignup, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>('/auth/register', {
-            firstName: 'Jan',
-            lastName: 'Kowalski',
-            email: credentialsSignup.email,
-        });
+        const { data: user } = await axios.post<User>(
+            'http://localhost:3010/register', // /auth/register
+            {
+                firstName: 'Jan',
+                lastName: 'Kowalski',
+                email: credentialsSignup.email,
+            }
+        );
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
         return thunkApi.rejectWithValue('Sth went wrong');
@@ -61,7 +64,7 @@ export const singUpSlice = createSlice({
     },
 });
 
-export const selectIsMainSent = (state: RootState) => {
+export const selectIsMailSent = (state: RootState) => {
     return state.singUpSlice.successfulMailSent;
 };
 

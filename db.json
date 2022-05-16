@@ -6,15 +6,12 @@
       "email": "wp@wp.pl"
     }
   ],
-  "register": 
-  {
-    "id": "850d5f65-4ad0-4ac9-a371-1e3006a6253e",
-    "email": "maciej.opalinski@coderscrew.pl",
-    "first_name": "Maciej",
-    "last_name": "Opaliński",
-    "birthdate": "2005-05-17T20:00:00.000Z",
-    "weight": "55, description: '[kg]'",
-    "height": "186, description: '[cm]'",
-    "gender": "Gender.MALE"
+  "register": {
+    "firstName": "Jan",
+    "lastName": "Kowalski",
+    "email": "wp@wp.pl"
+  },
+  "request-password-reset": {
+    "email": "mari@wp.pl"
   }
 }

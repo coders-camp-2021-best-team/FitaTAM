@@ -14,7 +14,8 @@
         "lint:api": "nx run api:lint",
         "lint:api:fix": "nx run api:lint --fix",
         "lint:all": "nx run-many --parallel --all --target=lint",
-        "graph": "nx graph"
+        "graph": "nx graph",
+        "start:be": "json-server --watch -p 3010 -d 1000 db.json"
     },
     "private": true,
     "dependencies": {
@@ -49,6 +50,7 @@
         "react-dom": "18.0.0",
         "react-redux": "^7.2.4",
         "react-router-dom": "6.3.0",
+        "react-toastify": "^9.0.1",
         "redux": "^4.1",
         "reflect-metadata": "^0.1.13",
         "regenerator-runtime": "0.13.7",
