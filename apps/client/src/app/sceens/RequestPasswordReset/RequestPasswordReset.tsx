@@ -1,9 +1,15 @@
 import Lock from '@mui/icons-material/Lock';
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { reqPasswordReset } from '../../redux/slices/reqPasswordReset';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    reqPasswordReset,
+    selectResetMailSent,
+} from '../../redux/slices/reqPasswordReset';
+import { toast } from 'react-toastify';
+import { ROUTES } from '../../routes/Routes';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -57,6 +63,17 @@ const StyledButtonSend = styled(Button)`
 export const RequestPasswordReset = () => {
     const [email, setEmail] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const resetMailSent = useSelector(selectResetMailSent);
+
+    useEffect(() => {
+        if (resetMailSent) {
+            toast('Email has been sent');
+            setEmail('');
+            navigate(ROUTES.LOGIN);
+        }
+    }, [resetMailSent, navigate]);
+
     return (
         <StyledPageBox>
             <StyledSectionBox>
