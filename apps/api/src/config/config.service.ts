@@ -54,7 +54,7 @@ export class ConfigService {
             username: this.env.get('POSTGRES_USER'),
             password: this.env.get('POSTGRES_PASSWORD'),
             database: this.env.get('POSTGRES_DATABASE'),
-            ssl: true,
+            ssl: { requestCert: true, rejectUnauthorized: false },
         };
     }
 
