@@ -1,6 +1,7 @@
 # FitaTAM
 
-[**Live client's app**](https://stellar-platypus-904acb.netlify.app/)
+[**Client (hosted on Netlify)**](https://stellar-platypus-904acb.netlify.app/)
+[**API (hosted on Heroku)**](https://fitatam-api.herokuapp.com/docs/)
 
 This project was generated using [Nx](https://nx.dev).
 

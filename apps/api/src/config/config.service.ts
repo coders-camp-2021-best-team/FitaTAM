@@ -49,11 +49,11 @@ export class ConfigService {
     databaseCredentials(): TypeOrmModuleOptions {
         return {
             type: 'postgres',
-            host: this.env.get('POSTGRES_HOST'),
-            port: this.env.get('POSTGRES_PORT'),
-            username: this.env.get('POSTGRES_USER'),
-            password: this.env.get('POSTGRES_PASSWORD'),
-            database: this.env.get('POSTGRES_DATABASE'),
+            url: this.env.get('DATABASE_URL'),
+            ssl:
+                this.env.get('DATABASE_SSL') === 'true'
+                    ? { requestCert: true, rejectUnauthorized: false }
+                    : undefined,
         };
     }
 
@@ -62,7 +62,7 @@ export class ConfigService {
             transport: {
                 host: this.env.get('SMTP_HOST'),
                 port: this.env.get('SMTP_PORT'),
-                secure: this.env.get('SMTP_SECURE'),
+                secure: this.env.get('SMTP_SECURE') === 'true',
                 auth: {
                     user: this.env.get('SMTP_USERNAME'),
                     pass: this.env.get('SMTP_PASSWORD'),
