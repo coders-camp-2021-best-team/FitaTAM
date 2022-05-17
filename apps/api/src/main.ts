@@ -36,7 +36,11 @@ async function bootstrap() {
         .addCookieAuth()
         .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/docs', app, document);
+    SwaggerModule.setup('/docs', app, document, {
+        swaggerOptions: {
+            persistAuthorization: true,
+        },
+    });
 
     await app.listen(env.PORT);
     Logger.log(`🚀 Application is running`);
