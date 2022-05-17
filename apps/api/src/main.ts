@@ -32,6 +32,7 @@ async function bootstrap() {
 
     const config = new DocumentBuilder()
         .setTitle('FitaTAM API Docs')
+        .addServer(env.BASE_PATH)
         .addCookieAuth()
         .build();
     const document = SwaggerModule.createDocument(app, config);
