@@ -1,6 +1,7 @@
 # FitaTAM
 
-[***Live client's app***](https://626ee42c07bb4f1347064d03--stellar-platypus-904acb.netlify.app/)
+[**Client (hosted on Netlify)**](https://stellar-platypus-904acb.netlify.app/)
+[**API (hosted on Heroku)**](https://fitatam-api.herokuapp.com/docs/)
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -12,6 +13,7 @@ There are also many [community plugins](https://nx.dev/community) you could add.
 
 -   `yarn start:client` - starts client's developer server
 -   `yarn lint:client/api` - runs linter for client/api app
+-   `yarn lint:client/api:fix` - run linter with --fix flag to fix all of the quick fixes in workspace
 -   `yarn graph` - start live server with graph of the monorepo
 -   `yarn build:client` - build production client's app
 

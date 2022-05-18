@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+    IsBooleanString,
+    IsEnum,
+    IsNumber,
+    IsString,
+    MinLength,
+} from 'class-validator';
+import { randomBytes } from 'crypto';
 
 export enum NodeEnv {
     DEVELOPMENT = 'development',
@@ -11,26 +18,59 @@ export class Env {
     @IsEnum(NodeEnv)
     NODE_ENV: NodeEnv;
 
+    // APP
+
     @Type(() => Number)
     @IsNumber()
     PORT = 3333;
+
+    // CORS
 
     @IsString()
     CLIENT_URL: string;
 
     @IsString()
-    POSTGRES_HOST: string;
+    CLIENT_CORS_WILDCARD_URL: string;
+
+    // SESSION
+
+    @IsString()
+    @MinLength(32)
+    COOKIE_SECRET: string = randomBytes(64).toString('base64url');
+
+    // REDIS
+
+    @IsString()
+    REDIS_URL: string;
+
+    // POSTGRESQL
+    @IsString()
+    DATABASE_URL: string;
+
+    @IsBooleanString()
+    DATABASE_SSL: string;
+
+    // SMTP
+
+    @IsBooleanString()
+    EMAIL_ENABLE: string;
+
+    @IsString()
+    SMTP_HOST: string;
 
     @Type(() => Number)
     @IsNumber()
-    POSTGRES_PORT: number;
+    SMTP_PORT: number;
+
+    @IsBooleanString()
+    SMTP_SECURE: string;
 
     @IsString()
-    POSTGRES_USER: string;
+    SMTP_USERNAME: string;
 
     @IsString()
-    POSTGRES_PASSWORD: string;
+    SMTP_PASSWORD: string;
 
     @IsString()
-    POSTGRES_DATABASE: string;
+    EMAIL_FROM: string;
 }

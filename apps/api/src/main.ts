@@ -14,16 +14,21 @@ async function bootstrap() {
     const env = app.get(ConfigService);
 
     app.enableCors({
-        origin: [env.CLIENT_URL],
+        origin: [
+            env.CLIENT_URL,
+            new RegExp(env.CLIENT_CORS_WILDCARD_URL),
+            'http://localhost',
+            'http://localhost:4200',
+        ],
         credentials: true,
     });
 
-    app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.useGlobalPipes(
+        new ValidationPipe({ transform: true, whitelist: true })
+    );
     app.useGlobalInterceptors(
         new ClassSerializerInterceptor(app.get(Reflector))
     );
-
-    app.setGlobalPrefix('/api');
 
     const config = new DocumentBuilder()
         .setTitle('FitaTAM API Docs')
