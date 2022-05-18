@@ -2,18 +2,13 @@ import { Type } from 'class-transformer';
 import {
     IsDate,
     IsEmail,
-    IsEnum,
     IsNotEmpty,
-    IsNumber,
     IsString,
     Length,
-    Max,
     MaxDate,
-    Min,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Gender, Goal, PhysicalActivity } from '../../entities';
 import { Match } from '../../decorators';
 
 export class RegisterDto {
@@ -46,31 +41,4 @@ export class RegisterDto {
     @IsDate()
     @MaxDate(new Date(Date.now() - 16 * 365 * 24 * 60 * 60 * 1000))
     birthdate: Date;
-
-    @ApiProperty({ example: 55, description: '[kg]' })
-    @IsNumber()
-    @Min(15)
-    @Max(500)
-    weight: number;
-
-    @ApiProperty({ example: 186, description: '[cm]' })
-    @IsNumber()
-    @Min(40)
-    @Max(300)
-    height: number;
-
-    @ApiProperty({ enum: Gender, example: Gender.MALE })
-    @IsEnum(Gender)
-    gender: Gender;
-
-    @ApiProperty({
-        enum: PhysicalActivity,
-        example: PhysicalActivity.MODERATELY_ACTIVE,
-    })
-    @IsEnum(PhysicalActivity)
-    physical_activity: PhysicalActivity;
-
-    @ApiProperty({ enum: Goal, example: Goal.GAIN_WEIGHT })
-    @IsEnum(Goal)
-    goal: Goal;
 }

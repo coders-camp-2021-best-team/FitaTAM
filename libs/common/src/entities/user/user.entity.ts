@@ -40,27 +40,27 @@ export class User {
     birthdate: Date;
 
     @ApiProperty({ example: 55, description: '[kg]' })
-    @Column('float', { comment: '[kg]' })
-    weight: number;
+    @Column('float', { comment: '[kg]', nullable: true })
+    weight: number | null;
 
     @ApiProperty({ example: 186, description: '[cm]' })
-    @Column('float', { comment: '[cm]' })
-    height: number;
+    @Column('float', { comment: '[cm]', nullable: true })
+    height: number | null;
 
     @ApiProperty({ enum: Gender, example: Gender.MALE })
-    @Column('enum', { enum: Gender })
-    gender: Gender;
+    @Column('enum', { enum: Gender, nullable: true })
+    gender: Gender | null;
 
     @ApiProperty({
         enum: PhysicalActivity,
         example: PhysicalActivity.MODERATELY_ACTIVE,
     })
-    @Column('enum', { enum: PhysicalActivity })
-    physical_activity: PhysicalActivity;
+    @Column('enum', { enum: PhysicalActivity, nullable: true })
+    physical_activity: PhysicalActivity | null;
 
     @ApiProperty({ enum: Goal, example: Goal.GAIN_WEIGHT })
-    @Column('enum', { enum: Goal })
-    goal: Goal;
+    @Column('enum', { enum: Goal, nullable: true })
+    goal: Goal | null;
 
     @ApiProperty({ enum: AccountRole, example: AccountRole.USER })
     @Column('enum', { enum: AccountRole, default: AccountRole.USER })
