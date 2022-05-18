@@ -28,13 +28,12 @@ export class CaslAbilityFactory {
         }
 
         can(Action.Read, [Dish, Product], { status: DishStatus.PUBLIC });
-        can(Action.Manage, [Dish, Product], { author: user });
+        can(Action.Manage, [Dish, Product], { author: { id: user.id } });
 
-        can(Action.Manage, MealPlanCategory, { user });
+        can(Action.Manage, MealPlanCategory, { user: { id: user.id } });
 
-        can(Action.Manage, MealPlanEntry, { user });
+        can(Action.Manage, MealPlanEntry, { user: { id: user.id } });
 
-        can(Action.Read, User);
         can(Action.Manage, User, { id: user.id });
 
         return build({
