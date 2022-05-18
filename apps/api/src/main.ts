@@ -18,7 +18,7 @@ async function bootstrap() {
             env.CLIENT_URL,
             new RegExp(env.CLIENT_CORS_WILDCARD_URL),
             'http://localhost',
-            'http://localhost:3000',
+            'http://localhost:4200',
         ],
         credentials: true,
     });
