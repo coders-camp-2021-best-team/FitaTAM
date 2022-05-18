@@ -1,16 +1,19 @@
-import { PaginationItem, Typography } from "@mui/material"
+import { PaginationItem, Typography, Pagination } from "@mui/material"
 import { Box } from "@mui/system";
 import { convertDate } from "../../utils/convertDate";
 import styled from '@emotion/styled';
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Dish } from "../../components";
 import { getDay } from "../../mocks/dishesOfTheDay";
+import { count } from "console";
 
 export const Feed = () => {
+  let dupa = -8;
+  const [page, setPage] = useState(new Date().getDay())
   const date = useMemo(() => new Date(), [new Date()]);
   date.setDate(date.getDate() -4);
   const getFullWeek = () => {
-    const week: Array<Date> = [];
+    const week = [];
     while(week.length < 7){
       week.push(new Date(date.setDate(date.getDate() + 1)));
     }
@@ -30,6 +33,13 @@ export const Feed = () => {
   `;
   const DayOfWeek = styled(Typography)`
     margin: 13px 0;
+  `;
+  const PaginationStyled = styled(Pagination)`
+    .MuiPagination-ul{
+      background-color: #4caf50;
+      display: flex;
+      justify-content: space-between;
+    }
   `;
   const dayOfTheWeek = (day: number) => {
     switch (day){
@@ -51,11 +61,14 @@ export const Feed = () => {
         return 'Wrong day';
     }
   }
+  // const handleChange = (event) => {}
   return (
     <>
-      <DayPicker>
-        {week.map((day) => <PaginationDay page={convertDate(day)} key={day.toString()} size='large' shape='rounded' />)}
-      </DayPicker>
+      <PaginationStyled hideNextButton={true} hidePrevButton={true} count={7} renderItem={() => {
+        ++dupa;
+      return <PaginationDay page={convertDate(new Date(week[dupa]))} size='large' shape='rounded' />
+      }}
+      onChange={(e) => console.log('dupa')}/>
       <DayOfWeek>{dayOfTheWeek(new Date().getDay())}</DayOfWeek>
       {dishes.map((dish) => <Dish dish={day[dish]} name={dish}/>)}
     </>

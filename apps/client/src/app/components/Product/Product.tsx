@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import { IconButton, Typography } from "@mui/material";
-import { Cancel } from "@mui/icons-material";
+import { Cancel, ConstructionOutlined } from "@mui/icons-material";
 import { product } from "../../utils/types/dish.types";
 
 type props = {
@@ -10,6 +10,7 @@ type props = {
 
 export const Product = ({product}: props) => {
   
+  const handleDetele = () => console.log("deleting product") // TODO connect with API
   const ProductBox = styled(Box)`
     padding: 5px;
     width: 100%;
@@ -28,7 +29,7 @@ export const Product = ({product}: props) => {
         <Typography variant='h6'>{product.name}</Typography>
         <Typography sx={{fontSize: '13px'}}>{product.kcal} kcal B: {product.B} T: {product.T} W: {product.W}</Typography>
       </Box>
-      <DeteleButton>
+      <DeteleButton onClick={handleDetele}>
         <Cancel />
       </DeteleButton>
     </ProductBox>
