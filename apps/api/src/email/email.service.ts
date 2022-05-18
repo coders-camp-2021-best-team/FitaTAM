@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MailerService } from '@nestjs-modules/mailer';
+import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 
 import { Token, User } from '@fitatam/common';
 import { ConfigService } from '../config';
@@ -11,14 +11,18 @@ export class EmailService {
         private mailerService: MailerService
     ) {}
 
+    private sendMail(sendMailOptions: ISendMailOptions) {
+        if (this.config.get('EMAIL_ENABLE') !== 'true') return;
+
+        return this.mailerService.sendMail(sendMailOptions);
+    }
+
     confirmAccount(user: User, token: Token) {
         const url = `${
             this.config.CLIENT_URL
         }/activate/${token.getURIEncodedToken()}`;
 
-        console.log(url);
-
-        return this.mailerService.sendMail({
+        return this.sendMail({
             to: user.email,
             subject: 'Welcome to FitaTAM',
             template: 'confirm-account',
@@ -34,7 +38,7 @@ export class EmailService {
             this.config.CLIENT_URL
         }/password-reset/${token.getURIEncodedToken()}`;
 
-        return this.mailerService.sendMail({
+        return this.sendMail({
             to: user.email,
             subject: 'Reset your FitaTAM account password',
             template: 'reset-password',

@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import {
-    IsBoolean,
+    IsBooleanString,
     IsEnum,
     IsNumber,
     IsString,
@@ -44,28 +44,16 @@ export class Env {
     REDIS_URL: string;
 
     // POSTGRESQL
-
     @IsString()
-    POSTGRES_HOST: string;
+    DATABASE_URL: string;
 
-    @Type(() => Number)
-    @IsNumber()
-    POSTGRES_PORT: number;
-
-    @IsString()
-    POSTGRES_USER: string;
-
-    @IsString()
-    POSTGRES_PASSWORD: string;
-
-    @IsString()
-    POSTGRES_DATABASE: string;
+    @IsBooleanString()
+    DATABASE_SSL: string;
 
     // SMTP
 
-    @Type(() => Boolean)
-    @IsBoolean()
-    EMAIL_ENABLE = false;
+    @IsBooleanString()
+    EMAIL_ENABLE: string;
 
     @IsString()
     SMTP_HOST: string;
@@ -74,9 +62,8 @@ export class Env {
     @IsNumber()
     SMTP_PORT: number;
 
-    @Type(() => Boolean)
-    @IsBoolean()
-    SMTP_SECURE: boolean;
+    @IsBooleanString()
+    SMTP_SECURE: string;
 
     @IsString()
     SMTP_USERNAME: string;
