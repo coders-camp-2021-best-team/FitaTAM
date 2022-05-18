@@ -39,26 +39,27 @@ export class User {
     @Column('date')
     birthdate: Date;
 
-    @ApiProperty({ example: 55, description: '[kg]' })
+    @ApiProperty({ example: 55, description: '[kg]', nullable: true })
     @Column('float', { comment: '[kg]', nullable: true })
     weight: number | null;
 
-    @ApiProperty({ example: 186, description: '[cm]' })
+    @ApiProperty({ example: 186, description: '[cm]', nullable: true })
     @Column('float', { comment: '[cm]', nullable: true })
     height: number | null;
 
-    @ApiProperty({ enum: Gender, example: Gender.MALE })
+    @ApiProperty({ enum: Gender, example: Gender.MALE, nullable: true })
     @Column('enum', { enum: Gender, nullable: true })
     gender: Gender | null;
 
     @ApiProperty({
         enum: PhysicalActivity,
         example: PhysicalActivity.MODERATELY_ACTIVE,
+        nullable: true,
     })
     @Column('enum', { enum: PhysicalActivity, nullable: true })
     physical_activity: PhysicalActivity | null;
 
-    @ApiProperty({ enum: Goal, example: Goal.GAIN_WEIGHT })
+    @ApiProperty({ enum: Goal, example: Goal.GAIN_WEIGHT, nullable: true })
     @Column('enum', { enum: Goal, nullable: true })
     goal: Goal | null;
 
@@ -70,17 +71,24 @@ export class User {
     @Column('enum', { enum: AccountStatus, default: AccountStatus.UNVERIFIED })
     account_status: AccountStatus;
 
-    @OneToOne(() => NutritionalValues, { eager: true, cascade: true })
+    @Exclude()
+    @OneToOne(() => NutritionalValues, {
+        eager: true,
+        cascade: true,
+        nullable: true,
+    })
     @JoinColumn()
-    nutritional_demand: NutritionalValues;
+    nutritional_demand: NutritionalValues | null;
 
     @Exclude()
     @OneToMany(() => Token, (t) => t.user, { cascade: true })
     tokens: Token[];
 
+    @Exclude()
     @OneToMany(() => MealPlanCategory, (c) => c.user, { cascade: true })
     meal_scheme: MealPlanCategory[];
 
+    @Exclude()
     @OneToMany(() => Dish, (d) => d.author, { cascade: true })
     dishes: Dish[];
 
