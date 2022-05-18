@@ -1,3 +1,4 @@
+export * from './decorators/';
 export * from './request.interface';
 export * from './cookie-expiry-time.enum';
 export * from './guards/';
