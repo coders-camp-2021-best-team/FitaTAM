@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { User } from '@fitatam/common';
+import { AUTH } from '../../enpoints';
 
 export interface UserState {
     value: User | null;
@@ -10,7 +11,7 @@ const initialState: UserState = {
     value: null,
 };
 
-interface SignInCredentials {
+interface LoginCredentials {
     email: string;
     password: string;
 }
@@ -22,14 +23,14 @@ interface AyncThunkOptions {
 
 export const loginUser = createAsyncThunk<
     User,
-    SignInCredentials,
+    LoginCredentials,
     AyncThunkOptions
 >('user', async (credentials, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>(
-            'http://localhost:3010/user', // /auth/login
-            { email: credentials.email, password: credentials.password }
-        );
+        const { data: user } = await axios.post<User>(AUTH.LOGIN, {
+            email: credentials.email,
+            password: credentials.password,
+        });
 
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
@@ -37,13 +38,12 @@ export const loginUser = createAsyncThunk<
     }
 });
 
-export const signInSlice = createSlice({
-    name: 'signInSlice',
+export const loginSlice = createSlice({
+    name: 'loginSlice',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<User | null>) => {
             state.value = action.payload;
-            console.log(state.value);
         },
     },
     extraReducers: (builder) => {
@@ -54,6 +54,6 @@ export const signInSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = signInSlice.actions;
+export const { setUser } = loginSlice.actions;
 
-export const signInReducer = signInSlice.reducer;
+export const loginReducer = loginSlice.reducer;

@@ -5,9 +5,15 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { resetPassword } from '../../redux/slices/resetPassword';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    resetPassword,
+    selectPasswordReset,
+} from '../../redux/slices/resetPassword';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { ROUTES } from '../../routes/Routes';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -56,8 +62,30 @@ const StyledButtonSend = styled(Button)`
 
 export const ResetPassword = () => {
     const [password, setPassword] = useState('');
-    const [confirmpassword, setConfirmpassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const { token } = useParams<{ token: string }>();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const passwordIsChange = useSelector(selectPasswordReset);
+
+    const handleResetPasswordRequestClick = () => {
+        if (token) {
+            const payload = {
+                token: token,
+                new_password: password,
+                confirm_password: confirmPassword,
+            };
+            dispatch(resetPassword(payload));
+        }
+    };
+
+    useEffect(() => {
+        if (passwordIsChange) {
+            toast('Password has been changed');
+            navigate(ROUTES.LOGIN);
+        }
+    }, [passwordIsChange, navigate]);
+
     return (
         <StyledPageBox>
             <StyledSectionBox>
@@ -72,11 +100,7 @@ export const ResetPassword = () => {
                 <StyledFormStyle
                     onSubmit={(e) => {
                         e.preventDefault();
-                        const credentialsResetPassword = {
-                            password: password,
-                            confirmPassword: confirmpassword,
-                        };
-                        dispatch(resetPassword(credentialsResetPassword));
+                        handleResetPasswordRequestClick();
                     }}
                 >
                     <StyledFormTextField
@@ -87,14 +111,13 @@ export const ResetPassword = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete='new-password'
                     />
-                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
                     <StyledFormTextField
                         variant='outlined'
                         required
                         label='Repeat Password'
-                        value={confirmpassword}
-                        onChange={(e) => setConfirmpassword(e.target.value)}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         autoComplete='new-password'
                     />
                     <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>

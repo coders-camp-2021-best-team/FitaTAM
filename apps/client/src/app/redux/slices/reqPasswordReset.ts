@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { request } from '../../Axios/axios';
+import { AUTH } from '../../enpoints';
 import { RootState } from '../store';
 
-export interface ResetPasswordState {
+export interface ReqResetPasswordState {
     msg: string;
     successfulResetMailSent: boolean;
 }
 
-const initialState: ResetPasswordState = {
+const initialState: ReqResetPasswordState = {
     msg: '',
     successfulResetMailSent: false,
 };
@@ -22,15 +23,15 @@ interface AyncThunkOptions {
 }
 
 export const reqPasswordReset = createAsyncThunk<
-    ResetPasswordState,
+    ReqResetPasswordState,
     ReqPasswordResetCredentials,
     AyncThunkOptions
->('resetPassword', async (credentialsReqPasswordReset, thunkApi) => {
+>('reqResetPassword', async (credentialsReqPasswordReset, thunkApi) => {
     try {
-        const { data } = await axios.post<{
+        const { data } = await request.post<{
             msg: string;
             successfulResetMailSent: boolean;
-        }>('http://localhost:3010/request-password-reset', {
+        }>(AUTH.REQUEST_PASSWORD_RESET, {
             email: credentialsReqPasswordReset.email,
         });
         return thunkApi.fulfillWithValue(data, null);

@@ -1,15 +1,15 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { counterReducer } from './slices/counter';
-import { signUpReducer } from './slices/signupUser';
-import { signInReducer } from './slices/signInUser';
+import { registerReducer } from './slices/registerUser';
+import { loginReducer } from './slices/loginUser';
 import { reqPasswordResetReducer } from './slices/reqPasswordReset';
 import { resetPasswordReducer } from './slices/resetPassword';
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        signInSlice: signInReducer,
-        singUpSlice: signUpReducer,
+        LoginSlice: loginReducer,
+        registerSlice: registerReducer,
         reqPasswordResetSlice: reqPasswordResetReducer,
         resetPasswordSlice: resetPasswordReducer,
     },

@@ -4,12 +4,22 @@
       "id": 1,
       "name": "Mariusz",
       "email": "wp@wp.pl"
+    },
+    {
+      "email": "mariusz@gmail.com",
+      "password": "Mariusz",
+      "id": 2
+    },
+    {
+      "email": "mariusz@gmail.com",
+      "password": "Mariusz",
+      "id": 3
     }
   ],
   "register": {
     "firstName": "Jan",
     "lastName": "Kowalski",
-    "email": "wp@wp.pl"
+    "email": "aa@wp.pl"
   },
   "request-password-reset": {
     "email": "mariusz@wp.pl"

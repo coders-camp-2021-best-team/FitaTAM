@@ -1,18 +1,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { User } from '@fitatam/common';
+import { AUTH } from '../../enpoints';
+import { request } from '../../Axios/axios';
+import { RootState } from '../store';
 
 export interface UserState {
     value: User | null;
+    passwordChange: boolean;
 }
 
 const initialState: UserState = {
     value: null,
+    passwordChange: false,
 };
 
 interface ResetPasswordCredentials {
-    password: string;
-    confirmPassword: string;
+    token: string;
+    new_password: string;
+    confirm_password: string;
 }
 
 interface AyncThunkOptions {
@@ -26,12 +31,9 @@ export const resetPassword = createAsyncThunk<
     AyncThunkOptions
 >('user', async (credentialsResetPassword, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>(
-            'http://localhost:3010/auth/password-reset',
-            {
-                passwordHash: credentialsResetPassword.password,
-                confirmpasswordHash: credentialsResetPassword.confirmPassword,
-            }
+        const { data: user } = await request.post<User>(
+            AUTH.RESET_PASSWORD,
+            credentialsResetPassword
         );
         return thunkApi.fulfillWithValue(user, null);
     } catch (error) {
@@ -51,9 +53,14 @@ export const resetPasswordSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.value = action.payload;
+            state.passwordChange = true;
         });
     },
 });
+
+export const selectPasswordReset = (state: RootState) => {
+    return state.resetPasswordSlice.passwordChange;
+};
 
 // Action creators are generated for each case reducer function
 export const { setUser } = resetPasswordSlice.actions;

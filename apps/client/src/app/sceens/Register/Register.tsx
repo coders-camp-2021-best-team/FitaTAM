@@ -10,7 +10,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ROUTES } from '../../routes/Routes';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsMailSent, signUpUser } from '../../redux/slices/signupUser';
+import {
+    selectIsMailSent,
+    registerUser,
+} from '../../redux/slices/registerUser';
 
 const StyledPageBox = styled(Box)`
     display: flex;
@@ -119,14 +122,14 @@ export const Register = () => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         const credentialsSignup = {
-                            firstName: firstName,
-                            lastName: lastName,
-                            birthday: new Date(birthday),
+                            first_name: firstName,
+                            last_name: lastName,
+                            birthdate: new Date(birthday),
                             email: email,
                             password: password,
-                            confirmPassword: confirmPassword,
+                            confirm_password: confirmPassword,
                         };
-                        dispatch(signUpUser(credentialsSignup));
+                        dispatch(registerUser(credentialsSignup));
                     }}
                 >
                     <StyledInputsName>
@@ -155,7 +158,6 @@ export const Register = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
                     <StyledFormTextFieldBirtday
                         variant='outlined'
@@ -168,7 +170,6 @@ export const Register = () => {
                             setBirthday(e.target.value);
                         }}
                     />
-                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
                     <StyledFormTextField
                         variant='outlined'
@@ -179,7 +180,6 @@ export const Register = () => {
                         autoComplete='new-password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <StyledErrorDiv className='invalid-feedback'></StyledErrorDiv>
 
                     <StyledFormTextField
                         variant='outlined'
