@@ -1,5 +1,4 @@
 import { PaginationItem, Typography, Pagination } from '@mui/material';
-import { Box } from '@mui/system';
 import { convertDate } from '../../utils/convertDate';
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
@@ -7,7 +6,7 @@ import { Dish, Footer } from '../../components';
 import { getDay } from '../../mocks/dishesOfTheDay';
 
 export const Feed = () => {
-    let dupa = -8;
+    let dupa = -1;
     const [dayOfWeek, setDayofWeek] = useState(new Date().getDay());
     const date = useMemo(() => new Date(), [new Date()]);
     date.setDate(date.getDate() - 4);
@@ -83,7 +82,7 @@ export const Feed = () => {
                 renderItem={(item) => {
                     ++dupa;
                     if (dupa === 7) {
-                        dupa = -7;
+                        dupa = -1;
                     }
                     return (
                         <PaginationDay
