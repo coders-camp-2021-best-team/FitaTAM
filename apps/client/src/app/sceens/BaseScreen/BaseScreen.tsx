@@ -1,3 +1,4 @@
+import { autocompleteClasses } from '@mui/material';
 import { Outlet } from 'react-router';
 
 import { Header } from '../../components';
@@ -10,11 +11,7 @@ export const BaseScreen = () => {
             <main
                 style={{
                     maxWidth: 480,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'flex-start',
-                    flexWrap: 'wrap',
+                    margin: '0 auto',
                 }}
             >
                 <Outlet />

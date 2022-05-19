@@ -48,8 +48,6 @@ export const Feed = () => {
         text-align: center;
     `;
     const PaginationStyled = styled(Pagination)`
-        width: 100%;
-        height: 40px;
         .MuiPagination-ul {
             background-color: #4caf50;
             display: flex;

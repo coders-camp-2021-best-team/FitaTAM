@@ -14,16 +14,16 @@ type Props = {
 export const Footer = ({ eaten }: Props) => {
     const goal = dailyGoal();
     return (
-        <footer
+        <div
             style={{
-                height: 'fit-content',
                 padding: '0 3px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 backgroundColor: 'white',
                 fontSize: '13px',
-                width: '100%',
-                alignSelf: 'flex-end',
+                width: '480px',
+                position: 'absolute',
+                bottom: '0',
             }}
         >
             <div>
@@ -38,6 +38,6 @@ export const Footer = ({ eaten }: Props) => {
             <div>
                 Carbs {eaten.carbs}/{goal.carbs} g
             </div>
-        </footer>
+        </div>
     );
 };
