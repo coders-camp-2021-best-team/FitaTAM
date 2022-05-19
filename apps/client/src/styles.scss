@@ -3,7 +3,11 @@ body{
   background-color: #edf7ed;
   .base-screen{
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+    height: 100vh;
+    main{
+      height: 100%;
+    }
   }
 }

@@ -27,8 +27,8 @@ export const Product = ({ product }: props) => {
             <Box>
                 <Typography variant='h6'>{product.name}</Typography>
                 <Typography sx={{ fontSize: '13px' }}>
-                    {product.kcal} kcal B: {product.B} T: {product.T} W:{' '}
-                    {product.W}
+                    {product.kcal} kcal B: {product.B}g T: {product.T}g W:{' '}
+                    {product.W}g
                 </Typography>
             </Box>
             <DeteleButton onClick={handleDetele}>

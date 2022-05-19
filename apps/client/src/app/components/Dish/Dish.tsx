@@ -15,6 +15,7 @@ type props = {
 export const Dish = ({ dish, name }: props) => {
     const [seeMore, setSeeMore] = useState(false);
     const DishBox = styled(Box)`
+        height: 70px;
         padding: 5px;
         width: 100%;
         background-color: white;
@@ -49,7 +50,7 @@ export const Dish = ({ dish, name }: props) => {
                     <Typography sx={{ fontSize: '13px' }}>
                         {dish.kcal} kcal
                         {dish.kcal !== '0'
-                            ? `B: ${dish.B} T: ${dish.T} W: ${dish.W}`
+                            ? `B: ${dish.B}g T: ${dish.T}g W: ${dish.W}g`
                             : null}
                     </Typography>
                 </Box>

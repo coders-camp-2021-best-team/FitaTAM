@@ -3,13 +3,12 @@ import { Box } from '@mui/system';
 import { convertDate } from '../../utils/convertDate';
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
-import { Dish } from '../../components';
+import { Dish, Footer } from '../../components';
 import { getDay } from '../../mocks/dishesOfTheDay';
-import { count } from 'console';
 
 export const Feed = () => {
     let dupa = -8;
-    const [page, setPage] = useState(new Date().getDay());
+    const [dayOfWeek, setDayofWeek] = useState(new Date().getDay());
     const date = useMemo(() => new Date(), [new Date()]);
     date.setDate(date.getDate() - 4);
     const getFullWeek = () => {
@@ -20,23 +19,37 @@ export const Feed = () => {
         return week;
     };
     const week = getFullWeek();
-    const day = getDay(1);
+    const day = getDay(dayOfWeek);
     const dishes = Object.keys(day) as Array<keyof typeof day>;
-    const DayPicker = styled(Box)`
-        background-color: #4caf50;
-        display: flex;
-        justyfy-content: space-between;
-    `;
+    const goal = {
+        kcal:
+            parseInt(day.Breakfast.kcal) +
+            parseInt(day.Dinner.kcal) +
+            parseInt(day.Supper.kcal),
+        prot:
+            parseInt(day.Breakfast.B) +
+            parseInt(day.Dinner.B) +
+            parseInt(day.Supper.B),
+        fat:
+            parseInt(day.Breakfast.T) +
+            parseInt(day.Dinner.T) +
+            parseInt(day.Supper.T),
+        carbs:
+            parseInt(day.Breakfast.W) +
+            parseInt(day.Dinner.W) +
+            parseInt(day.Supper.W),
+    };
     const PaginationDay = styled(PaginationItem)`
-        flex-grow: 1;
-        :hover: {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
+        background-color: unset !important;
     `;
     const DayOfWeek = styled(Typography)`
+        height: fit-content;
         margin: 13px 0;
+        text-align: center;
     `;
     const PaginationStyled = styled(Pagination)`
+        width: 100%;
+        height: 40px;
         .MuiPagination-ul {
             background-color: #4caf50;
             display: flex;
@@ -52,7 +65,7 @@ export const Feed = () => {
             case 2:
                 return 'Tuesday';
             case 3:
-                return 'Wednsday';
+                return 'Wendsday';
             case 4:
                 return 'Thursday';
             case 5:
@@ -63,28 +76,36 @@ export const Feed = () => {
                 return 'Wrong day';
         }
     };
-    // const handleChange = (event) => {}
     return (
         <>
             <PaginationStyled
                 hideNextButton={true}
                 hidePrevButton={true}
                 count={7}
-                renderItem={() => {
+                renderItem={(item) => {
                     ++dupa;
+                    if (dupa === 7) {
+                        dupa = -7;
+                    }
                     return (
                         <PaginationDay
+                            {...item}
                             page={convertDate(new Date(week[dupa]))}
                             size='large'
                             shape='rounded'
                         />
                     );
                 }}
+                onChange={(e, p) => {
+                    setDayofWeek(week[p - 1].getDay());
+                    console.log(e.target);
+                }}
             />
-            <DayOfWeek>{dayOfTheWeek(new Date().getDay())}</DayOfWeek>
+            <DayOfWeek>{dayOfTheWeek(dayOfWeek)}</DayOfWeek>
             {dishes.map((dish) => (
-                <Dish dish={day[dish]} name={dish} />
+                <Dish dish={day[dish]} name={dish} key={dish} />
             ))}
+            <Footer eaten={goal} />
         </>
     );
 };

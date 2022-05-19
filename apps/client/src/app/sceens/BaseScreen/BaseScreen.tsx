@@ -10,10 +10,11 @@ export const BaseScreen = () => {
             <main
                 style={{
                     maxWidth: 480,
-                    margin: '64px auto',
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap',
                 }}
             >
                 <Outlet />
