@@ -23,10 +23,7 @@ export const CheckPolicies = (...handlers: PolicyHandler[]) =>
 
 @Injectable()
 export class PoliciesGuard implements CanActivate {
-    constructor(
-        private reflector: Reflector,
-        private caslAbilityFactory: CaslAbilityFactory
-    ) {}
+    constructor(private reflector: Reflector) {}
 
     async canActivate(context: ExecutionContext) {
         const policyHandlers =
@@ -36,7 +33,7 @@ export class PoliciesGuard implements CanActivate {
             ) || [];
 
         const { user } = context.switchToHttp().getRequest<Request>();
-        const ability = this.caslAbilityFactory.createForUser(user);
+        const ability = CaslAbilityFactory.createForUser(user);
 
         return policyHandlers.every((handler) =>
             this.execPolicyHandler(handler, ability)

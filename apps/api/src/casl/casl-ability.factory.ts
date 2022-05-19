@@ -18,7 +18,7 @@ import { AppAbility, Action, Subjects } from '.';
 
 @Injectable()
 export class CaslAbilityFactory {
-    createForUser(user: User) {
+    static createForUser(user: User) {
         const { can, build } = new AbilityBuilder(
             Ability as AbilityClass<AppAbility>
         );
