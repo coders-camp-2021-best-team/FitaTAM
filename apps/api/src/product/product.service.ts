@@ -1,14 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import {
+    Product,
     CreateProductDto,
     UpdateProductDto,
-    GetProductDto,
     UpdateProductStatusDto,
-} from '../../../../libs/common/src/dto/product';
-
-import { Product } from '@fitatam/common';
+    GetProductDto,
+} from '@fitatam/common';
 
 @Injectable()
 export class ProductService {
@@ -16,50 +16,52 @@ export class ProductService {
         @InjectRepository(Product) private products: Repository<Product>
     ) {}
 
-    async getProducts(data: GetProductDto, take: number, skip: number) {
+    async getProducts(dto: GetProductDto) {
         return await this.products.find({
-            where: [{ name: data.name }],
-            take,
-            skip,
+            where: [{ name: dto.name }],
+            take: dto.take,
+            skip: dto.skip,
         });
     }
 
-    async createProduct(data: CreateProductDto) {
-        const newProduct = this.products.create({
-            name: data.name,
-            package_grams: data.package_grams,
-            package_servings: data.package_servings,
-            brand: data?.brand,
-            barcode: data?.barcode,
-        });
+    async createProduct(dto: CreateProductDto) {
+        const newProduct = this.products.create(dto);
         return this.products.save(newProduct);
     }
 
-    async updateProduct(id: string, data: UpdateProductDto) {
+    async updateProduct(id: string, dto: UpdateProductDto) {
         const product = await this.products.findOneOrFail({ where: { id } });
 
-        product.name = data.name || product.name;
-        product.package_grams = data.package_grams || product.package_grams;
+        product.name = dto.name || product.name;
+        product.package_grams = dto.package_grams || product.package_grams;
         product.package_servings =
-            data.package_servings || product.package_servings;
-        product.brand = data.brand || product.brand;
-        product.barcode = data.barcode || product.barcode;
+            dto.package_servings || product.package_servings;
+        product.brand = dto.brand || product.brand;
+        product.barcode = dto.barcode || product.barcode;
 
         return this.products.save(product);
     }
 
     async deleteProduct(id: string) {
-        const product = await this.products.findOneOrFail({
-            where: { id },
-        });
-
-        return await this.products.remove(product);
+        try {
+            const product = await this.products.findOneOrFail({
+                where: { id },
+            });
+            return await this.products.remove(product);
+        } catch {
+            throw new NotFoundException();
+        }
     }
 
-    async updateProductStatus(id: string, data: UpdateProductStatusDto) {
-        const product = await this.products.findOneOrFail({ where: { id } });
-        product.status = data.status || product.status;
-
-        return this.products.save(product);
+    async updateProductStatus(id: string, dto: UpdateProductStatusDto) {
+        try {
+            const product = await this.products.findOneOrFail({
+                where: { id },
+            });
+            product.status = dto.status || product.status;
+            return this.products.save(product);
+        } catch {
+            throw new NotFoundException();
+        }
     }
 }
