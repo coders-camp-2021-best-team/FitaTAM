@@ -1,6 +1,5 @@
 import {
     CreateProductDto,
-    GetProductDto,
     UpdateProductDto,
     UpdateProductStatusDto,
 } from '@fitatam/common';
@@ -23,8 +22,12 @@ export class ProductController {
 
     @Get()
     @HttpCode(200)
-    getProducts(@Query() query: GetProductDto) {
-        return this.productService.getProducts(query);
+    getProducts(
+        @Query('name') name: string,
+        @Query('take') take: number,
+        @Query('skip') skip: number
+    ) {
+        return this.productService.getProducts(name, take, skip);
     }
 
     @Post()

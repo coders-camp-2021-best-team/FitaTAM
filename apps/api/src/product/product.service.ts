@@ -7,20 +7,19 @@ import {
     CreateProductDto,
     UpdateProductDto,
     UpdateProductStatusDto,
-    GetProductDto,
 } from '@fitatam/common';
-
+//TODO add nutritional values to product
 @Injectable()
 export class ProductService {
     constructor(
         @InjectRepository(Product) private products: Repository<Product>
     ) {}
 
-    async getProducts(dto: GetProductDto) {
+    async getProducts(name: string, take = 10, skip = 0) {
         return await this.products.find({
-            where: [{ name: dto.name }],
-            take: dto.take,
-            skip: dto.skip,
+            where: [{ name }],
+            take,
+            skip,
         });
     }
 
