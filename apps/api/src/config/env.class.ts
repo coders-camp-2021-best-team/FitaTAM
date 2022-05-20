@@ -24,6 +24,9 @@ export class Env {
     @IsNumber()
     PORT = 3333;
 
+    @IsString()
+    BASE_PATH = '/';
+
     // CORS
 
     @IsString()

@@ -24,12 +24,20 @@ import {
     ResetPasswordDto,
     User,
 } from '@fitatam/common';
-import { LoginGuard, Request, AuthService } from '.';
+import { LoginGuard, Request, AuthService, ReqUser, CookieGuard } from '.';
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
+
+    @Post('@me')
+    @HttpCode(200)
+    @UseGuards(CookieGuard)
+    @ApiOkResponse({ type: User })
+    me(@ReqUser() user: User) {
+        return user;
+    }
 
     @Post('login')
     @HttpCode(200)
@@ -37,8 +45,8 @@ export class AuthController {
     @ApiBody({ type: LoginDto })
     @ApiOkResponse({ description: 'Successfully logged in', type: User })
     @ApiUnauthorizedResponse({ description: 'Invalid credentials' })
-    login(@Req() req: Request) {
-        return req.user;
+    login(@ReqUser() user: User) {
+        return user;
     }
 
     @Post('register')
