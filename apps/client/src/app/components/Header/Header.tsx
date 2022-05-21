@@ -14,6 +14,7 @@ export const Header = () => {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        position: unset;
     `;
     const Logo = styled(Typography)`
         margin-left: 20px;
