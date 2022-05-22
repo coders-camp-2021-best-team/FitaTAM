@@ -35,9 +35,7 @@ export const Register = () => {
                     Sign up
                 </Typography>
 
-                <form
-                    onSubmit={(e) => {}}
-                >
+                <form onSubmit={() => console.log('sent')}>
                     <StyledInputsName>
                         <StyledFormTextFieldName
                             variant='outlined'

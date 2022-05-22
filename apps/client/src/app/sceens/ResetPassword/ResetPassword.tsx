@@ -11,7 +11,6 @@ import {
 } from './ResetPassword.style';
 import { useState } from 'react';
 
-
 export const ResetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,9 +26,7 @@ export const ResetPassword = () => {
                     Reset Password
                 </Typography>
 
-                <StyledFormStyle
-                    onSubmit={(e) => {}}
-                >
+                <StyledFormStyle onSubmit={() => console.log('sent')}>
                     <StyledFormTextField
                         variant='outlined'
                         required

@@ -27,9 +27,7 @@ export const Login = () => {
 
                 <StyledTypography variant='h4'>Sign in</StyledTypography>
 
-                <form
-                    onSubmit={() => {}}
-                >
+                <form onSubmit={() => console.log('sent')}>
                     <StyledFormTextField
                         variant='outlined'
                         required

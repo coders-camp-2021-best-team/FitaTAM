@@ -24,9 +24,7 @@ export const RequestPasswordReset = () => {
                     Forgot Password?
                 </StyledTypographyTop>
 
-                <StyledFormStyle
-                    onSubmit={(e) => {}}
-                >
+                <StyledFormStyle onSubmit={() => console.log('sent')}>
                     <StyledFormTextField
                         variant='outlined'
                         required
