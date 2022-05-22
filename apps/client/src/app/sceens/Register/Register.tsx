@@ -1,12 +1,20 @@
-import Lock from '@mui/icons-material/Lock';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import styled from '@emotion/styled';
+import {
+    StyledPageBox,
+    StyledSectionBox,
+    StyledAvatar,
+    StyledAvatarLock,
+    StyledInputsName,
+    StyledFormTextFieldName,
+    StyledFormTextField,
+    StyledFormTextFieldBirtday,
+    StyledErrorDiv,
+    StyledButtonSign,
+    StyledSectionBottom,
+    StyledNavLink,
+} from './Register.style';
 import { toast } from 'react-toastify';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ROUTES } from '../../routes/Routes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,70 +22,6 @@ import {
     selectIsMailSent,
     registerUser,
 } from '../../redux/slices/registerUser';
-
-const StyledPageBox = styled(Box)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-const StyledSectionBox = styled(Box)`
-    margin: 80px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 90%;
-`;
-const StyledAvatar = styled(Avatar)`
-    margin: 8px;
-    background-color: #4caf50;
-    width: 70px;
-    height: 70px;
-    @media (max-width: 480px) {
-        width: 40px;
-        height: 40px;
-    }
-`;
-const StyledAvatarLock = styled(Lock)`
-    font-size: 48px;
-    color: #fff;
-    @media (max-width: 480px) {
-        font-size: 24px;
-    }
-`;
-const StyledInputsName = styled(Box)`
-    width: 100%;
-    display: ;flex;
-    flex-direciotn: row;
-    margin: 10px 0;
-`;
-const StyledFormTextFieldName = styled(TextField)`
-    width: 50%;
-`;
-const StyledFormTextField = styled(TextField)`
-    width: 100%;
-    margin: 10px 0;
-`;
-const StyledFormTextFieldBirtday = styled(TextField)`
-    width: 100%;
-    margin: 10px 0;
-`;
-const StyledErrorDiv = styled(Box)`
-    color: red;
-`;
-const StyledButtonSign = styled(Button)`
-    width: 100%;
-    color: #fff;
-`;
-const StyledSectionBottom = styled(Box)`
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 2rem;
-`;
-const StyledNavLink = styled(NavLink)`
-    color: #000;
-`;
 
 export const Register = () => {
     const [firstName, setFirstName] = useState('');

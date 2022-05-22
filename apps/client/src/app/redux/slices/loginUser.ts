@@ -1,14 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { User } from '@fitatam/common';
+import { User, AccountStatus } from '@fitatam/common';
 import { AUTH } from '../../enpoints';
+import { request } from '../../Axios/axios';
+import { RootState } from '../store';
 
+export enum LoadingState {
+    IDLE,
+    LOADING,
+    SUCCESS,
+}
 export interface UserState {
     value: User | null;
+    loading: LoadingState;
 }
 
 const initialState: UserState = {
     value: null,
+    loading: LoadingState.IDLE,
 };
 
 interface LoginCredentials {
@@ -27,7 +35,7 @@ export const loginUser = createAsyncThunk<
     AyncThunkOptions
 >('user', async (credentials, thunkApi) => {
     try {
-        const { data: user } = await axios.post<User>(AUTH.LOGIN, {
+        const { data: user } = await request.post<User>(AUTH.LOGIN, {
             email: credentials.email,
             password: credentials.password,
         });
@@ -52,6 +60,14 @@ export const loginSlice = createSlice({
         });
     },
 });
+
+export const selectIsLoggedIn = (state: RootState) => {
+    return !!(state.loginSlice.value?.account_status === AccountStatus.ACTIVE);
+};
+
+export const selectIsLoginProcessLoading = (state: RootState) => {
+    return state.loginSlice.loading === LoadingState.LOADING;
+};
 
 // Action creators are generated for each case reducer function
 export const { setUser } = loginSlice.actions;

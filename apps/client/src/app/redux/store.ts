@@ -8,7 +8,7 @@ import { resetPasswordReducer } from './slices/resetPassword';
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        LoginSlice: loginReducer,
+        loginSlice: loginReducer,
         registerSlice: registerReducer,
         reqPasswordResetSlice: reqPasswordResetReducer,
         resetPasswordSlice: resetPasswordReducer,
