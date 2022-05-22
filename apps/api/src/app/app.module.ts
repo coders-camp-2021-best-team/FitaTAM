@@ -4,10 +4,11 @@ import * as session from 'express-session';
 import * as ConnectRedis from 'connect-redis';
 import { Redis } from 'ioredis';
 
+import { Time } from '@fitatam/common';
 import { ConfigModule, ConfigService, NodeEnv } from '../config';
 import { REDIS, RedisModule } from '../redis';
 import { DatabaseModule } from '../database';
-import { AuthModule, CookieExpiryTime } from '../auth';
+import { AuthModule } from '../auth';
 import { UserModule } from '../user';
 import { AppController, AppService } from '.';
 
@@ -38,7 +39,7 @@ export class AppModule {
                     resave: false,
                     saveUninitialized: false,
                     cookie: {
-                        maxAge: 7 * CookieExpiryTime.DAY,
+                        maxAge: 7 * Time.DAY,
                         httpOnly: true,
                         secure: 'auto',
                         sameSite:

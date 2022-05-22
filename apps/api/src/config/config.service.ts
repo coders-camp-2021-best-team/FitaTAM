@@ -38,6 +38,10 @@ export class ConfigService {
         return this.env.get<string>('REDIS_URL');
     }
 
+    get BASE_PATH() {
+        return this.env.get<string>('BASE_PATH');
+    }
+
     redisOptions(): RedisOptions {
         return {
             tls: this.REDIS_URL.startsWith('rediss://')
