@@ -13,10 +13,11 @@ import {
     Query,
     Param,
     Delete,
+    ParseUUIDPipe,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 
-@Controller('product')
+@Controller('products')
 export class ProductController {
     constructor(private productService: ProductService) {}
 
@@ -32,19 +33,25 @@ export class ProductController {
 
     //TODO make this protected - only for author and admin
     @Put(':id')
-    updateProduct(@Param('id') id, @Body() dto: UpdateProductDto) {
+    updateProduct(
+        @Param('id', ParseUUIDPipe) id: string,
+        @Body() dto: UpdateProductDto
+    ) {
         return this.productService.updateProduct(id, dto);
     }
 
     //TODO admin only
     @Delete(':id')
-    deleteProduct(@Param('id') id) {
+    deleteProduct(@Param('id', ParseUUIDPipe) id: string) {
         return this.productService.deleteProduct(id);
     }
 
     //TODO admin only
     @Post(':id/review')
-    updateProductStatus(@Param('id') id, @Body() dto: UpdateProductStatusDto) {
+    updateProductStatus(
+        @Param('id', ParseUUIDPipe) id: string,
+        @Body() dto: UpdateProductStatusDto
+    ) {
         return this.updateProductStatus(id, dto);
     }
 }
