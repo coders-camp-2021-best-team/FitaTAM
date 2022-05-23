@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    Injectable,
+    NotFoundException,
+    UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -9,7 +13,9 @@ import {
     UpdateProductStatusDto,
     SearchProductDto,
     NutritionalValues,
+    User,
 } from '@fitatam/common';
+
 @Injectable()
 export class ProductService {
     constructor(
@@ -26,7 +32,7 @@ export class ProductService {
         });
     }
 
-    async createProduct(dto: CreateProductDto) {
+    async createProduct(user: User, dto: CreateProductDto) {
         const nutritionalValues = this.nutritionalValues.create({
             energy_value: dto.energy_value,
             proteins: dto.proteins,
@@ -39,6 +45,7 @@ export class ProductService {
         await this.nutritionalValues.save(nutritionalValues);
 
         const newProduct = this.products.create({
+            author: user,
             name: dto.name,
             package_grams: dto.package_grams,
             package_servings: dto.package_servings,
@@ -49,40 +56,43 @@ export class ProductService {
         return await this.products.save(newProduct);
     }
 
-    async updateProduct(id: string, dto: UpdateProductDto) {
-        try {
-            const product = await this.products.findOneOrFail({
-                where: { id },
-                relations: ['nutritional_values'],
-            });
+    async updateProduct(id: string, user: User, dto: UpdateProductDto) {
+        const product = await this.products.findOneOrFail({
+            where: { id },
+            relations: ['nutritional_values'],
+        });
 
-            return this.products.save({ ...product, ...dto });
-        } catch {
-            throw new NotFoundException();
-        }
+        if (!product) throw new NotFoundException();
+
+        if (!user.isAdmin && user != product.author)
+            throw new UnauthorizedException();
+
+        return this.products.save({ ...product, ...dto });
     }
 
     async deleteProduct(id: string) {
-        try {
-            const product = await this.products.findOneOrFail({
-                where: { id },
-                relations: ['nutritional_values'],
-            });
-            return await this.products.remove(product);
-        } catch {
-            throw new NotFoundException();
-        }
+        const product = await this.products.findOneOrFail({
+            where: { id },
+        });
+
+        if (!product) throw new NotFoundException();
+
+        return await this.products.remove(product);
     }
 
-    async updateProductStatus(id: string, dto: UpdateProductStatusDto) {
-        try {
-            const product = await this.products.findOneOrFail({
-                where: { id },
-            });
-            product.status = dto.status || product.status;
-            return this.products.save(product);
-        } catch {
-            throw new NotFoundException();
-        }
+    async updateProductStatus(
+        id: string,
+        user: User,
+        dto: UpdateProductStatusDto
+    ) {
+        const product = await this.products.findOneOrFail({
+            where: { id },
+        });
+
+        if (!product) throw new NotFoundException();
+
+        if (!user.isAdmin) throw new UnauthorizedException();
+
+        return this.products.save({ ...product, ...dto });
     }
 }

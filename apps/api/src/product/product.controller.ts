@@ -51,10 +51,9 @@ export class ProductController {
         if (!perms.can(Action.Create, user)) {
             throw new UnauthorizedException();
         }
-        return this.productService.createProduct(dto);
+        return this.productService.createProduct(user, dto);
     }
 
-    //TODO make this protected - only for author and admin
     @Put(':id')
     updateProduct(
         @Param('id', ParseUUIDPipe) id: string,
@@ -66,10 +65,9 @@ export class ProductController {
             throw new UnauthorizedException();
         }
 
-        return this.productService.updateProduct(id, dto);
+        return this.productService.updateProduct(id, user, dto);
     }
 
-    //TODO admin only
     @Delete(':id')
     deleteProduct(
         @Param('id', ParseUUIDPipe) id: string,
@@ -83,7 +81,6 @@ export class ProductController {
         return this.productService.deleteProduct(id);
     }
 
-    //TODO admin only
     @Post(':id/review')
     updateProductStatus(
         @Param('id', ParseUUIDPipe) id: string,
@@ -95,6 +92,6 @@ export class ProductController {
             throw new UnauthorizedException();
         }
 
-        return this.productService.updateProductStatus(id, dto);
+        return this.productService.updateProductStatus(id, user, dto);
     }
 }
