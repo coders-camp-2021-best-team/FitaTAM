@@ -2,6 +2,7 @@ import {
     CreateProductDto,
     UpdateProductDto,
     UpdateProductStatusDto,
+    SearchProductDto,
 } from '@fitatam/common';
 import {
     Body,
@@ -20,12 +21,8 @@ export class ProductController {
     constructor(private productService: ProductService) {}
 
     @Get()
-    getProducts(
-        @Query('name') name: string,
-        @Query('take') take: number,
-        @Query('skip') skip: number
-    ) {
-        return this.productService.getProducts(name, take, skip);
+    getProducts(@Query() q: SearchProductDto) {
+        return this.productService.getProducts(q);
     }
 
     @Post()
