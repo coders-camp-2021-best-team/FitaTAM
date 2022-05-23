@@ -53,28 +53,10 @@ export class ProductService {
         try {
             const product = await this.products.findOneOrFail({
                 where: { id },
+                relations: ['nutritional_values'],
             });
 
-            product.name = dto.name || product.name;
-            product.package_grams = dto.package_grams || product.package_grams;
-            product.package_servings =
-                dto.package_servings || product.package_servings;
-            product.brand = dto.brand || product.brand;
-            product.barcode = dto.barcode || product.barcode;
-            product.nutritional_values.carbohydrates =
-                dto.carbohydrates || product.nutritional_values.carbohydrates;
-            product.nutritional_values.energy_value =
-                dto.energy_value || product.nutritional_values.energy_value;
-            product.nutritional_values.proteins =
-                dto.proteins || product.nutritional_values.proteins;
-            product.nutritional_values.fats =
-                dto.fats || product.nutritional_values.fats;
-            product.nutritional_values.water =
-                dto.water || product.nutritional_values.water;
-            product.nutritional_values.unit =
-                dto.unit || product.nutritional_values.unit;
-
-            return this.products.save(product);
+            return this.products.save({ ...product, ...dto });
         } catch {
             throw new NotFoundException();
         }
