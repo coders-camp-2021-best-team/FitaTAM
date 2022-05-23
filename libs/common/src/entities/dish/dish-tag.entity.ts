@@ -1,5 +1,6 @@
 import { Entity, ManyToMany, PrimaryColumn } from 'typeorm';
-import { Dish } from './dish.entity';
+
+import { Dish } from '.';
 
 @Entity()
 export class DishTag {
