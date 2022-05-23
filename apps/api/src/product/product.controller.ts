@@ -32,19 +32,19 @@ export class ProductController {
 
     //TODO make this protected - only for author and admin
     @Put(':id')
-    updateProduct(@Param() params, @Body() dto: UpdateProductDto) {
-        return this.productService.updateProduct(params.id, dto);
+    updateProduct(@Param('id') id, @Body() dto: UpdateProductDto) {
+        return this.productService.updateProduct(id, dto);
     }
 
     //TODO admin only
     @Delete(':id')
-    deleteProduct(@Param() params) {
-        return this.productService.deleteProduct(params.id);
+    deleteProduct(@Param('id') id) {
+        return this.productService.deleteProduct(id);
     }
 
     //TODO admin only
     @Post(':id/review')
-    updateProductStatus(@Param() params, @Body() dto: UpdateProductStatusDto) {
-        return this.updateProductStatus(params.id, dto);
+    updateProductStatus(@Param('id') id, @Body() dto: UpdateProductStatusDto) {
+        return this.updateProductStatus(id, dto);
     }
 }
