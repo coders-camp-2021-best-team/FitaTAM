@@ -6,6 +6,11 @@ import {
     Length,
     Max,
     Min,
+    IsArray,
+    IsUUID,
+    ArrayUnique,
+    ArrayMaxSize,
+    ArrayMinSize,
 } from 'class-validator';
 
 import { MealType, Diet, WorldCuisines } from '../../entities';
@@ -16,9 +21,17 @@ export class UpdateDishDto {
     @Length(3, 128)
     name?: string;
 
+    @IsOptional()
+    @IsArray()
+    @ArrayMinSize(1)
+    @ArrayMaxSize(20)
+    @ArrayUnique()
+    @IsUUID('all', { each: true })
+    products: string[];
+
     @IsString()
     @IsOptional()
-    @Length(5, 256)
+    @Length(5, 65535)
     description?: string;
 
     @IsOptional()
@@ -29,7 +42,7 @@ export class UpdateDishDto {
 
     @IsOptional()
     @IsString()
-    @Length(10)
+    @Length(10, 65535)
     recipe?: string;
 
     @IsOptional()

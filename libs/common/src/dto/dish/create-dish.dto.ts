@@ -1,8 +1,13 @@
 import {
+    ArrayMaxSize,
+    ArrayMinSize,
+    ArrayUnique,
+    IsArray,
     IsEnum,
     IsInt,
     IsOptional,
     IsString,
+    IsUUID,
     Length,
     Max,
     Min,
@@ -15,9 +20,16 @@ export class CreateDishDto {
     @Length(3, 128)
     name: string;
 
+    @IsArray()
+    @ArrayMinSize(1)
+    @ArrayMaxSize(20)
+    @ArrayUnique()
+    @IsUUID('all', { each: true })
+    products: string[];
+
     @IsString()
     @IsOptional()
-    @Length(5, 256)
+    @Length(5, 65535)
     description?: string;
 
     @IsOptional()
@@ -28,7 +40,7 @@ export class CreateDishDto {
 
     @IsOptional()
     @IsString()
-    @Length(10)
+    @Length(10, 65535)
     recipe?: string;
 
     @IsOptional()
