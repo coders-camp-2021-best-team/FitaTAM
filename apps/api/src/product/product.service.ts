@@ -64,7 +64,7 @@ export class ProductService {
 
         if (!product) throw new NotFoundException();
 
-        if (!user.isAdmin && user != product.author)
+        if (!user.isAdmin && user.id != product.author.id)
             throw new UnauthorizedException();
 
         return this.products.save({ ...product, ...dto });
