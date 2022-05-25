@@ -13,6 +13,8 @@ import {
     Min,
 } from 'class-validator';
 
+import { Product } from '../../entities';
+
 import { MealType, Diet, WorldCuisines } from '../../entities';
 
 export class CreateDishDto {
@@ -24,8 +26,8 @@ export class CreateDishDto {
     @ArrayMinSize(1)
     @ArrayMaxSize(20)
     @ArrayUnique()
-    @IsUUID('all', { each: true })
-    products: string[];
+    @IsUUID()
+    productIDs: string[];
 
     @IsString()
     @IsOptional()
@@ -62,5 +64,5 @@ export class CreateDishDto {
 
     @IsOptional()
     @IsEnum(WorldCuisines)
-    world_cuisines?: WorldCuisines;
+    world_cuisine?: WorldCuisines;
 }

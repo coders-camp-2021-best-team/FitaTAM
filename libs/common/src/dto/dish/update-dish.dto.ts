@@ -13,7 +13,7 @@ import {
     ArrayMinSize,
 } from 'class-validator';
 
-import { MealType, Diet, WorldCuisines } from '../../entities';
+import { MealType, Diet, WorldCuisines, Product } from '../../entities';
 
 export class UpdateDishDto {
     @IsOptional()
@@ -27,7 +27,7 @@ export class UpdateDishDto {
     @ArrayMaxSize(20)
     @ArrayUnique()
     @IsUUID('all', { each: true })
-    products: string[];
+    products?: Product[];
 
     @IsString()
     @IsOptional()
