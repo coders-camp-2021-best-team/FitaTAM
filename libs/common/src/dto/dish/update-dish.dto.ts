@@ -7,7 +7,6 @@ import {
     Max,
     Min,
     IsArray,
-    IsUUID,
     ArrayUnique,
     ArrayMaxSize,
     ArrayMinSize,
@@ -26,7 +25,6 @@ export class UpdateDishDto {
     @ArrayMinSize(1)
     @ArrayMaxSize(20)
     @ArrayUnique()
-    @IsUUID('all', { each: true })
     products?: Product[];
 
     @IsString()

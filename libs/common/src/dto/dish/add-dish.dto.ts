@@ -7,7 +7,6 @@ import {
     IsInt,
     IsOptional,
     IsString,
-    IsUUID,
     Length,
     Max,
     Min,
@@ -26,7 +25,6 @@ export class AddDishDto {
     @ArrayMinSize(1)
     @ArrayMaxSize(20)
     @ArrayUnique()
-    @IsUUID()
     products: Product[];
 
     @IsString()
