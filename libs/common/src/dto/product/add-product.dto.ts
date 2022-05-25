@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Unit } from '../../entities';
 
-export class CreateProductDto {
+export class AddProductDto {
     @IsString()
     @Length(2, 128)
     name: string;

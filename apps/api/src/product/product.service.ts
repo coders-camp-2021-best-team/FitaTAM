@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 
 import {
     Product,
-    CreateProductDto,
+    AddProductDto,
     UpdateProductDto,
     UpdateProductStatusDto,
     SearchProductDto,
@@ -32,7 +32,7 @@ export class ProductService {
         });
     }
 
-    async createProduct(user: User, dto: CreateProductDto) {
+    async addProduct(user: User, dto: AddProductDto) {
         const nutritionalValues = this.nutritionalValues.create({
             energy_value: dto.energy_value,
             proteins: dto.proteins,
@@ -71,7 +71,7 @@ export class ProductService {
         return this.products.save({ ...product, ...dto });
     }
 
-    async deleteProduct(id: string) {
+    async removeProduct(id: string) {
         const product = await this.products.findOneOrFail({
             where: { id },
         });

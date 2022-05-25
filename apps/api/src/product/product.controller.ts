@@ -1,5 +1,5 @@
 import {
-    CreateProductDto,
+    AddProductDto,
     UpdateProductDto,
     UpdateProductStatusDto,
     SearchProductDto,
@@ -44,14 +44,14 @@ export class ProductController {
 
     @Post()
     createProduct(
-        @Body() dto: CreateProductDto,
+        @Body() dto: AddProductDto,
         @ReqUser() user: User,
         @UserPermissions() perms: AppAbility
     ) {
         if (!perms.can(Action.Create, user)) {
             throw new UnauthorizedException();
         }
-        return this.productService.createProduct(user, dto);
+        return this.productService.addProduct(user, dto);
     }
 
     @Put(':id')
@@ -78,7 +78,7 @@ export class ProductController {
             throw new UnauthorizedException();
         }
 
-        return this.productService.deleteProduct(id);
+        return this.productService.removeProduct(id);
     }
 
     @Post(':id/review')
