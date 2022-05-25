@@ -10,6 +10,7 @@ import { REDIS, RedisModule } from '../redis';
 import { DatabaseModule } from '../database';
 import { AuthModule } from '../auth';
 import { UserModule } from '../user';
+import { DishModule } from '../dish';
 import { AppController, AppService } from '.';
 
 const RedisStore = ConnectRedis(session);
@@ -21,6 +22,7 @@ const RedisStore = ConnectRedis(session);
         DatabaseModule,
         AuthModule,
         UserModule,
+        DishModule,
     ],
     controllers: [AppController],
     providers: [AppService],
