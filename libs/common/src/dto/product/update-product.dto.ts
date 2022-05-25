@@ -58,4 +58,8 @@ export class UpdateProductDto {
     @IsOptional()
     @IsString()
     barcode?: string;
+
+    @IsOptional()
+    @IsString()
+    photo_etag?: string;
 }

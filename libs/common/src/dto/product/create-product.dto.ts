@@ -49,4 +49,8 @@ export class CreateProductDto {
     @IsOptional()
     @IsString()
     barcode?: string;
+
+    @IsOptional()
+    @IsString()
+    photo_etag?: string;
 }

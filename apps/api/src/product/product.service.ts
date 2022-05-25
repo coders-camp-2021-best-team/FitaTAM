@@ -51,6 +51,7 @@ export class ProductService {
             package_servings: dto.package_servings,
             brand: dto?.brand,
             barcode: dto?.barcode,
+            photo_etag: dto?.photo_etag,
             nutritional_values: nutritionalValues,
         });
         return await this.products.save(newProduct);
