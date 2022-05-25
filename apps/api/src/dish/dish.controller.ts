@@ -72,7 +72,7 @@ export class DishController {
         if (!perms.can(Action.Delete, user)) {
             throw new UnauthorizedException();
         }
-        return this.dishService.deleteDish(user, id);
+        return this.dishService.removeDish(user, id);
     }
 
     @Put(':id')

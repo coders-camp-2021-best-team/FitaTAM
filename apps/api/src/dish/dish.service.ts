@@ -9,7 +9,7 @@ import { In, Repository } from 'typeorm';
 import {
     Dish,
     SearchDishDto,
-    CreateDishDto,
+    AddDishDto,
     User,
     UpdateDishDto,
 } from '@fitatam/common';
@@ -26,7 +26,7 @@ export class DishService {
         });
     }
 
-    async addDish(user: User, dto: CreateDishDto) {
+    async addDish(user: User, dto: AddDishDto) {
         const newDish = this.dishes.create({
             author: user,
             name: dto.name,
@@ -55,7 +55,7 @@ export class DishService {
         return dish;
     }
 
-    async deleteDish(user: User, id: string) {
+    async removeDish(user: User, id: string) {
         const dish = await this.dishes.findOneOrFail({
             where: { id },
             relations: ['user'],

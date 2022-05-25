@@ -17,7 +17,7 @@ import { Product } from '../../entities';
 
 import { MealType, Diet, WorldCuisines } from '../../entities';
 
-export class CreateDishDto {
+export class AddDishDto {
     @IsString()
     @Length(3, 128)
     name: string;
