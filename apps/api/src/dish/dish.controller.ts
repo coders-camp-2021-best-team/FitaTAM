@@ -15,7 +15,7 @@ import { DishService } from '.';
 import { CookieGuard, ReqUser } from '../auth';
 import { Action, AppAbility, PoliciesGuard, UserPermissions } from '../casl';
 import {
-    CreateDishDto,
+    AddDishDto,
     SearchDishDto,
     UpdateDishDto,
     User,
@@ -41,7 +41,7 @@ export class DishController {
 
     @Post()
     addDish(
-        @Body() dto: CreateDishDto,
+        @Body() dto: AddDishDto,
         @ReqUser() user: User,
         @UserPermissions() perms: AppAbility
     ) {
