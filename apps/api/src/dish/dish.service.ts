@@ -26,7 +26,7 @@ export class DishService {
         });
     }
 
-    async createDish(user: User, dto: CreateDishDto) {
+    async addDish(user: User, dto: CreateDishDto) {
         const products = await this.products.findBy({
             id: In(dto.productIDs),
         });
