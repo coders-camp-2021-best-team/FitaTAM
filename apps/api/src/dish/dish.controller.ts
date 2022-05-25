@@ -60,7 +60,7 @@ export class DishController {
         if (!perms.can(Action.Read, user)) {
             throw new UnauthorizedException();
         }
-        return this.dishService.getDish(id);
+        return this.dishService.getDish(user, id);
     }
 
     @Delete(':id')
@@ -72,7 +72,7 @@ export class DishController {
         if (!perms.can(Action.Delete, user)) {
             throw new UnauthorizedException();
         }
-        return this.dishService.deleteDish(id);
+        return this.dishService.deleteDish(user, id);
     }
 
     @Put(':id')
@@ -85,6 +85,6 @@ export class DishController {
         if (!perms.can(Action.Update, user)) {
             throw new UnauthorizedException();
         }
-        return this.dishService.updateDish(id, dto);
+        return this.dishService.updateDish(user, id, dto);
     }
 }

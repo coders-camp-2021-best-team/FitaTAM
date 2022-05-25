@@ -27,7 +27,7 @@ export class CreateDishDto {
     @ArrayMaxSize(20)
     @ArrayUnique()
     @IsUUID()
-    productIDs: string[];
+    products: Product[];
 
     @IsString()
     @IsOptional()
